@@ -1,0 +1,25 @@
+<md-toolbar class="" color="primary">
+
+    <button md-icon-button (click)="toggleNav()">
+        <md-icon>menu</md-icon>
+    </button>
+
+    <span>{{pageTitle}}</span>
+
+    <span class="spacer"></span>
+
+    <button md-icon-button>
+        <md-icon>search</md-icon>
+    </button>
+
+    <button md-icon-button [mdMenuTriggerFor]="moreMenu">
+        <md-icon>more_vert</md-icon>
+    </button>
+
+    <md-menu #moreMenu="mdMenu">
+        <button md-menu-item> Settings </button>
+        <button md-menu-item> Help </button>
+        <button md-menu-item> About </button>
+    </md-menu>
+
+</md-toolbar>

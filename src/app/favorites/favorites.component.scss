@@ -1,0 +1,61 @@
+//@import "../../../../../src/theme/theme-variables";
+
+.favorites {
+  &__tabs {
+    //Angular Material overrides
+    //Maybe should moved to own file
+    .mat-tab-labels {
+      justify-content: center;
+    }
+
+    .mat-tab-nav-bar,
+    .mat-tab-header {
+      border-bottom: none;
+      background-color: white;
+    }
+
+    .mat-tab-body-content {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mat-tab-body {
+      height: calc(100vh - 113px);
+    }
+  }
+
+  &__card {
+    &__img.mat-card-avatar {
+      height: 50px;
+      width: 50px;
+      border-radius: 5%;
+    }
+
+    &.mat-card {
+      width: 90%;
+      margin-top: 15px;
+      box-shadow: 0 0 1px -4px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+
+      @media (min-width: 480px) {
+        width: 90%;
+        margin-top: 25px;
+      }
+
+      @media (min-width: 768px) {
+        width: 80%;
+      }
+
+      @media (min-width: 768px) {
+        width: 60%;
+      }
+    }
+  }
+
+  &__fab {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    z-index: 2;
+  }
+}

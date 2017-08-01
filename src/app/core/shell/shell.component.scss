@@ -1,0 +1,46 @@
+.sidenav-container {
+  &.is-visible {
+    .sidenav__content {
+      padding-left: 290px;
+    }
+  }
+}
+
+.sidenav {
+  width: 290px;
+  background-color: whitesmoke;
+  //TODO: use variables from theme-variables.css
+
+  &__header {
+    border-bottom: 1px solid rgba(117, 117, 117, 0.2);
+  }
+
+  &__list {
+    border-bottom: 1px solid rgba(117, 117, 117, 0.2);
+    padding: 16px 0;
+
+    a {
+      color: #757575;
+      font-size: 1rem;
+    }
+
+    &__icon {
+      margin-right: 16px;
+    }
+  }
+
+  &.is-visible {
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+
+    .sidenav__header {
+      background: #607d8b; //TODO: use variables from theme-variables.css
+      color: white;
+      border-bottom: none;
+    }
+  }
+
+  &.is-hidden {
+    visibility: inherit;
+  }
+}

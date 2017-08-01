@@ -1,0 +1,45 @@
+/*
+ * Entry point of global application style.
+ * Component-specific style should not go here and be included directly as part of the components.
+ */
+
+// Theme variables, must be included before the libraries to allow overriding defaults
+@import "theme/theme-variables";
+
+// 3rd party libraries
+//@import "~bootstrap/scss/bootstrap";
+//@import "~font-awesome/scss/font-awesome.scss";
+
+// Theme customization
+@import "theme/theme";
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+// Specs can be found here:
+// https://material.io/guidelines/components/snackbars-toasts.html#snackbars-toasts-usage
+//Mobile
+//
+// Single-line snackbar height: 48dp
+// Multi-line snackbar height: 80dp
+// Text: Roboto Regular 14sp
+// Action button: Roboto Medium 14sp, all-caps text
+// Default background fill: #323232 100%
+
+//Tablet/desktop
+//
+// Single-line snackbar height: 48dp tall
+// Minimum width: 288dp
+// Maximum width: 568dp
+// 2dp rounded corner
+// Text: Roboto Regular 14sp
+// Action button: Roboto Medium 14sp, all-caps text
+// Default background fill: #323232 100%
+// Alignment: Centered or left-aligned 24dp from the left and bottom edges of the screen
+
+
+snack-bar-container {
+  //width: 100%;
+  //justify-self: flex-start;
+}

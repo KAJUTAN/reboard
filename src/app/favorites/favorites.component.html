@@ -1,0 +1,38 @@
+<div class="favorites">
+
+  <md-tab-group class="favorites__tabs">
+    <md-tab label="Favorites">
+      <md-card class="favorites__card" *ngFor="let track of tracks">
+        <md-card-header>
+          <div md-card-avatar class="favorites__card__img" [ngStyle]="{'background-image': 'url(' + track.artwork_url + ')'}"></div>
+          <md-card-title>{{track.title}}</md-card-title>
+          <md-card-subtitle>{{track.user.username}}</md-card-subtitle>
+        </md-card-header>
+        <md-card-actions>
+          <button md-button>LIKE</button>
+          <button md-button>SHARE</button>
+        </md-card-actions>
+      </md-card>
+    </md-tab>
+
+    <md-tab label="Archive">
+      <md-card class="favorites__card" *ngFor="let track of tracks">
+        <md-card-header>
+          <div md-card-avatar class="favorites__card__img" [ngStyle]="{'background-image': 'url(' + track.artwork_url + ')'}"></div>
+          <md-card-title>{{track.title}}</md-card-title>
+          <md-card-subtitle>{{track.user.username}}</md-card-subtitle>
+        </md-card-header>
+        <md-card-actions>
+          <button md-button>LIKE</button>
+          <button md-button>SHARE</button>
+        </md-card-actions>
+      </md-card>
+    </md-tab>
+
+  </md-tab-group>
+
+  <!--<button md-fab class="home__fab">-->
+    <!--<md-icon>shuffle</md-icon>-->
+  <!--</button>-->
+
+</div>

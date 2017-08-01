@@ -1,0 +1,34 @@
+<md-sidenav-container class="sidenav-container" [ngClass]="{'is-visible': navIsVisible, 'is-hidden': !navIsVisible}">
+
+    <md-sidenav #sidenav mode="over" class="sidenav"
+                [ngClass]="{'is-visible': navIsVisible, 'is-hidden': !navIsVisible}">
+
+        <md-toolbar class="sidenav__header">
+
+            <span>Angular Material2 Dashboard</span>
+
+        </md-toolbar>
+
+        <md-nav-list class="sidenav__list">
+            <a md-list-item routerLink="{{link.path}}" *ngFor="let link of mainLinks">
+                <md-icon class="sidenav__list__icon">{{link.icon}}</md-icon>
+                {{link.name }}
+            </a>
+        </md-nav-list>
+
+        <md-nav-list class="sidenav__list">
+            <a md-list-item href class="sidenav__list__icon" *ngFor="let sublink of subLinks">
+                <md-icon class="sidenav__list__icon">{{sublink.icon}}</md-icon>
+                {{sublink.name }}
+            </a>
+        </md-nav-list>
+
+    </md-sidenav>
+
+    <app-header [sidenav]="sidenav"></app-header>
+
+    <div class="sidenav__content">
+        <router-outlet></router-outlet>
+    </div>
+
+</md-sidenav-container>
