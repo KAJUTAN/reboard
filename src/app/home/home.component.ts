@@ -7,6 +7,8 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
 
+import {single, multi} from './data';
+
 
 @Component({
     selector: 'app-home',
@@ -20,7 +22,31 @@ export class HomeComponent implements OnInit {
     founder: Guser; //TODO: Don't like this
     isLoading: boolean;
 
+    //
+    single: any[];
+    multi: any[];
+    view: any[]; //= [700, 400];
+    //
+
+    // options
+    showXAxis = true;
+    showYAxis = true;
+    gradient = false;
+    showLegend = true;
+    showXAxisLabel = true;
+    xAxisLabel = 'Country';
+    showYAxisLabel = true;
+    yAxisLabel = 'Population';
+
+    colorScheme = {
+        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    };
+
+    // line, area
+    autoScale = true;
+
     constructor(private githubService: GithubService) {
+        Object.assign(this, {single, multi});
     }
 
     ngOnInit() {
@@ -54,6 +80,10 @@ export class HomeComponent implements OnInit {
         //         console.log(err);
         //     });
 
+    }
+
+    onSelect(event: any) {
+        console.log(event);
     }
 
 }

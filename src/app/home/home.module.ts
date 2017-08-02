@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 // Angular Material components
 import {MdTabsModule} from '@angular/material';
@@ -21,6 +22,7 @@ import {GithubService} from '../core/github.service';
     imports: [
         CommonModule,
         TranslateModule,
+        NgxChartsModule,
         CoreModule,
         SharedModule,
         HomeRoutingModule,

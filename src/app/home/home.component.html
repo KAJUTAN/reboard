@@ -49,16 +49,109 @@
     </md-card>
 
     <!--<md-card class="home__chart" *ngFor="let track of tracks">-->
-        <!--<md-card-header>-->
-            <!--<div md-card-avatar class="home__card__img"-->
-                 <!--[ngStyle]="{'background-image': 'url(' + track.artwork_url + ')'}"></div>-->
-            <!--<md-card-title>{{track.title}}</md-card-title>-->
-            <!--<md-card-subtitle>{{track.user.username}}</md-card-subtitle>-->
-        <!--</md-card-header>-->
-        <!--<md-card-actions>-->
-            <!--<button md-button>LIKE</button>-->
-            <!--<button md-button>SHARE</button>-->
-        <!--</md-card-actions>-->
+    <!--<md-card-header>-->
+    <!--<div md-card-avatar class="home__card__img"-->
+    <!--[ngStyle]="{'background-image': 'url(' + track.artwork_url + ')'}"></div>-->
+    <!--<md-card-title>{{track.title}}</md-card-title>-->
+    <!--<md-card-subtitle>{{track.user.username}}</md-card-subtitle>-->
+    <!--</md-card-header>-->
+    <!--<md-card-actions>-->
+    <!--<button md-button>LIKE</button>-->
+    <!--<button md-button>SHARE</button>-->
+    <!--</md-card-actions>-->
     <!--</md-card>-->
+
+    <md-card class="home__chart">
+        <md-card-header>
+            <md-card-title>Chart title here</md-card-title>
+        </md-card-header>
+        <md-card-content>
+            <ngx-charts-line-chart
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="multi"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel"
+                    [autoScale]="autoScale"
+                    (select)="onSelect($event)">
+            </ngx-charts-line-chart>
+        </md-card-content>
+    </md-card>
+
+
+    <md-card class="home__chart">
+        <md-card-header>
+            <md-card-title>Chart title here</md-card-title>
+        </md-card-header>
+        <md-card-content>
+            <ngx-charts-line-chart
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="multi"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel"
+                    [autoScale]="autoScale"
+                    (select)="onSelect($event)">
+            </ngx-charts-line-chart>
+        </md-card-content>
+    </md-card>
+
+    <md-card class="home__chart">
+        <md-card-header>
+            <md-card-title>Chart title here</md-card-title>
+        </md-card-header>
+        <md-card-content>
+            <ngx-charts-line-chart
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="multi"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel"
+                    [autoScale]="autoScale"
+                    (select)="onSelect($event)">
+            </ngx-charts-line-chart>
+        </md-card-content>
+    </md-card>
+
+    <md-card class="home__chart">
+        <md-card-header>
+            <md-card-title>Chart title here</md-card-title>
+        </md-card-header>
+        <md-card-content>
+            <ngx-charts-line-chart
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="multi"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel"
+                    [autoScale]="autoScale"
+                    (select)="onSelect($event)">
+            </ngx-charts-line-chart>
+        </md-card-content>
+    </md-card>
 
 </div>
