@@ -47,7 +47,7 @@ export class ShellComponent implements OnInit {
 
     ngOnInit() {
         Observable.fromEvent(window, 'resize')
-            .debounceTime(100)
+            // .debounceTime(100)
             .subscribe((event) => {
                 this.checkNav(event);
             });

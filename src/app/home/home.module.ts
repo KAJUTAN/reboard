@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 // Angular Material components
 import {MdTabsModule} from '@angular/material';
@@ -17,12 +18,12 @@ import {SoundcloudService} from '../core/soundcloud.service';
 import {GithubService} from '../core/github.service';
 
 
-
 @NgModule({
     imports: [
         CommonModule,
         TranslateModule,
         NgxChartsModule,
+        FlexLayoutModule,
         CoreModule,
         SharedModule,
         HomeRoutingModule,

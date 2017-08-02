@@ -13,31 +13,9 @@
 // Theme customization
 @import "theme/theme";
 
-::-webkit-scrollbar {
-  display: none;
-}
-
-// Specs can be found here:
-// https://material.io/guidelines/components/snackbars-toasts.html#snackbars-toasts-usage
-//Mobile
-//
-// Single-line snackbar height: 48dp
-// Multi-line snackbar height: 80dp
-// Text: Roboto Regular 14sp
-// Action button: Roboto Medium 14sp, all-caps text
-// Default background fill: #323232 100%
-
-//Tablet/desktop
-//
-// Single-line snackbar height: 48dp tall
-// Minimum width: 288dp
-// Maximum width: 568dp
-// 2dp rounded corner
-// Text: Roboto Regular 14sp
-// Action button: Roboto Medium 14sp, all-caps text
-// Default background fill: #323232 100%
-// Alignment: Centered or left-aligned 24dp from the left and bottom edges of the screen
-
+//::-webkit-scrollbar {
+//  display: none;
+//}
 
 snack-bar-container {
   //width: 100%;

@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
     //
     single: any[];
     multi: any[];
-    view: any[]; //= [700, 400];
+    // view: any[] = [undefined, undefined];
+    view: any;
     //
 
     // options
@@ -66,7 +67,6 @@ export class HomeComponent implements OnInit {
             }, err => {
                 console.log(err);
             });
-
 
 
         // this.githubService
