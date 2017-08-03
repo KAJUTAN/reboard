@@ -19,7 +19,7 @@ import {single, multi} from './data';
 export class HomeComponent implements OnInit {
 
     users: Guser[];
-    founder: Guser; //TODO: Don't like this
+    founder: Guser; // TODO: Don't like this
     isLoading: boolean;
 
     //

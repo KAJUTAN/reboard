@@ -13,7 +13,7 @@ import {PlayerComponent} from '../../../player/player.component';
 export class HeaderComponent implements OnInit {
 
     @Input() sidenav: any;
-    private pageTitle: String;
+    pageTitle: String;
 
     constructor(private i18nService: I18nService,
                 private snackBar: MdSnackBar,

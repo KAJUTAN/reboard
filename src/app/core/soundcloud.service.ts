@@ -37,7 +37,8 @@ export class SoundcloudService {
     // }
 
     getLatestTracks(): Observable<Track[]> {
-        // return this.http.get('https://api.soundcloud.com/tracks?created_at[from]=2015-06-01&duration[from]=180000&duration[to]=900000&limit=10&client_id=2dbcad492823222adc83d4ea53034b9e', {cache: true})
+        // return this.http.get('https://api.soundcloud.com/tracks?created_at[from]=2015-06-01&duration[from]=180000
+        // &duration[to]=900000&limit=10&client_id=2dbcad492823222adc83d4ea53034b9e', {cache: true})
         return this.http.get(API_URL + '?ids=' + TRACKS_LIST + '&client_id=' + API_KEY, {cache: true})
             .map((res: Response) => res.json())
             // .map(body => body.value)
