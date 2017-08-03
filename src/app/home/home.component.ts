@@ -32,19 +32,41 @@ export class HomeComponent implements OnInit {
     // options
     showXAxis = true;
     showYAxis = true;
-    gradient = false;
+    gradient = true;
     showLegend = true;
+    legendTitle = '';
     showXAxisLabel = true;
     xAxisLabel = 'Country';
     showYAxisLabel = true;
     yAxisLabel = 'Population';
 
+
+    // red: FE7675
+    // blue: 2DABE5
+    // orange: FFC36D
+    // green: 54E69D
+
     colorScheme = {
-        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+        domain: ['#FE7675', '#2095F2', '#4DAE4E', '#FE9900']
     };
 
     // line, area
     autoScale = true;
+
+    folders = [
+        {
+            name: 'Photos',
+            updated: new Date('1/1/16'),
+        },
+        {
+            name: 'Recipes',
+            updated: new Date('1/17/16'),
+        },
+        {
+            name: 'Work',
+            updated: new Date('1/28/16'),
+        }
+    ];
 
     constructor(private githubService: GithubService) {
         Object.assign(this, {single, multi});

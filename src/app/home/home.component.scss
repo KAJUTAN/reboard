@@ -5,10 +5,14 @@
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #F5F5F5;
+  //TODO: use variables from theme-variables.css
+  padding: 24px;
 
   &__stats,
   &__charts {
     width: 100%;
+    margin-bottom: 16px;
   }
 
   // md-card overrides
@@ -34,28 +38,30 @@
       float: right;
     }
 
-    &--blue {
-      background: #03A9F4;
-    }
-
-    &--yellow {
-      background: #ffc107;
-    }
-
-    &--purple {
-      background: #d559ea;
-    }
-
     &--red {
-      background: #ff5652;
+      background: #FE7675;
     }
+
+    &--blue {
+      background: #2DABE5;
+    }
+
+    &--orange {
+      background: #FFC36D;
+    }
+
+    &--green {
+      background: #54E69D;
+    }
+
   }
 
   &__chart {
-    min-height: 350px;
+    min-height: 388px;
 
     &__title {
-      font-weight: 600;
+      font-size: 1.4285rem;
+      //font-weight: 600;
       width: 100%;
     }
 

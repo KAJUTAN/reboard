@@ -9,6 +9,7 @@ import {MdTabsModule} from '@angular/material';
 import {MdCardModule} from '@angular/material';
 import {MdButtonModule} from '@angular/material';
 import {MdIconModule} from '@angular/material';
+import {MdListModule} from '@angular/material';
 
 import {CoreModule} from '../core/core.module';
 import {SharedModule} from '../shared/shared.module';
@@ -30,7 +31,8 @@ import {GithubService} from '../core/github.service';
         MdTabsModule,
         MdCardModule,
         MdButtonModule,
-        MdIconModule
+        MdIconModule,
+        MdListModule
     ],
     declarations: [
         HomeComponent

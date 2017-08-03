@@ -1,7 +1,7 @@
 <div class="home" fxLayout="column" fxLayoutAlign="center flex-start">
 
     <div class="home__stats" fxFlex="701px" fxFlex.sm="350px" fxFlex.gt-sm="170px" fxLayout fxLayout.lt-md="row wrap" fxLayoutAlign="space-between flex-start">
-        <md-card class="home__stat home__stat--blue" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
+        <md-card class="home__stat home__stat--red" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
             <md-card-header>
                 <md-card-title class="home__stat__title">{{founder.public_repos}}</md-card-title>
                 <md-card-subtitle class="home__stat__subtitle">public repos</md-card-subtitle>
@@ -13,7 +13,7 @@
             </md-card-actions>
         </md-card>
 
-        <md-card class="home__stat home__stat--yellow" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
+        <md-card class="home__stat home__stat--blue" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
             <md-card-header>
                 <md-card-title class="home__stat__title">{{founder.public_gists}}</md-card-title>
                 <md-card-subtitle class="home__stat__subtitle">public gists</md-card-subtitle>
@@ -25,7 +25,7 @@
             </md-card-actions>
         </md-card>
 
-        <md-card class="home__stat home__stat--purple" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
+        <md-card class="home__stat home__stat--orange" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
             <md-card-header>
                 <md-card-title class="home__stat__title">{{founder.followers}}</md-card-title>
                 <md-card-subtitle class="home__stat__subtitle">followers</md-card-subtitle>
@@ -37,7 +37,7 @@
             </md-card-actions>
         </md-card>
 
-        <md-card class="home__stat home__stat--red" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
+        <md-card class="home__stat home__stat--green" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
             <md-card-header>
                 <md-card-title class="home__stat__title">{{founder.following}}</md-card-title>
                 <md-card-subtitle class="home__stat__subtitle">following</md-card-subtitle>
@@ -51,7 +51,7 @@
     </div>
 
     <div class="home__charts" fxLayout="row wrap" fxLayoutAlign="space-between flex-start">
-        <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="48">
+        <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="61">
             <md-card-header>
                 <div class="home__chart__title" fxLayout fxLayoutAlign="space-between center">
                     <span>Chart title here</span>
@@ -69,6 +69,7 @@
                         [xAxis]="showXAxis"
                         [yAxis]="showYAxis"
                         [legend]="showLegend"
+                        [legendTitle]="legendTitle"
                         [showXAxisLabel]="showXAxisLabel"
                         [showYAxisLabel]="showYAxisLabel"
                         [xAxisLabel]="xAxisLabel"
@@ -79,7 +80,43 @@
             </md-card-content>
         </md-card>
 
-        <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="48">
+        <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="35.3">
+            <md-card-header>
+                <div class="home__chart__title" fxLayout fxLayoutAlign="space-between center">
+                    <span>Folders</span>
+                    <button md-icon-button>
+                        <md-icon>more_vert</md-icon>
+                    </button>
+                </div>
+            </md-card-header>
+            <!--<md-card-content class="home__chart__content">-->
+
+                <md-list>
+                    <md-list-item *ngFor="let folder of folders">
+                        <md-icon md-list-icon>folder</md-icon>
+                        <h4 md-line>{{folder.name}}</h4>
+                        <p md-line> {{folder.updated | date}} </p>
+                    </md-list-item>
+                </md-list>
+
+                <!--<ngx-charts-bar-vertical-->
+                        <!--[view]="view"-->
+                        <!--[scheme]="colorScheme"-->
+                        <!--[results]="single"-->
+                        <!--[gradient]="gradient"-->
+                        <!--[xAxis]="showXAxis"-->
+                        <!--[yAxis]="showYAxis"-->
+                        <!--[legend]= false-->
+                        <!--[showXAxisLabel]="showXAxisLabel"-->
+                        <!--[showYAxisLabel]="showYAxisLabel"-->
+                        <!--[xAxisLabel]="xAxisLabel"-->
+                        <!--[yAxisLabel]="yAxisLabel"-->
+                        <!--(select)="onSelect($event)">-->
+                <!--</ngx-charts-bar-vertical>-->
+            <!--</md-card-content>-->
+        </md-card>
+
+        <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="45.3">
             <md-card-header>
                 <div class="home__chart__title" fxLayout fxLayoutAlign="space-between center">
                     <span>Chart title here</span>
@@ -89,53 +126,25 @@
                 </div>
             </md-card-header>
             <md-card-content class="home__chart__content">
-                <ngx-charts-line-chart
+
+                <ngx-charts-pie-chart
                         [view]="view"
                         [scheme]="colorScheme"
-                        [results]="multi"
-                        [gradient]="gradient"
-                        [xAxis]="showXAxis"
-                        [yAxis]="showYAxis"
+                        [results]="single"
                         [legend]="showLegend"
-                        [showXAxisLabel]="showXAxisLabel"
-                        [showYAxisLabel]="showYAxisLabel"
-                        [xAxisLabel]="xAxisLabel"
-                        [yAxisLabel]="yAxisLabel"
-                        [autoScale]="autoScale"
+                        [legendTitle]="legendTitle"
+                        [explodeSlices]="explodeSlices"
+                        [labels]="showLabels"
+                        [doughnut]="doughnut"
+                        [gradient]="gradient"
                         (select)="onSelect($event)">
-                </ngx-charts-line-chart>
+                </ngx-charts-pie-chart>
+
             </md-card-content>
         </md-card>
 
-        <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="48">
-            <md-card-header>
-                <div class="home__chart__title" fxLayout fxLayoutAlign="space-between center">
-                    <span>Chart title here</span>
-                    <button md-icon-button>
-                        <md-icon>more_vert</md-icon>
-                    </button>
-                </div>
-            </md-card-header>
-            <md-card-content class="home__chart__content">
-                <ngx-charts-line-chart
-                        [view]="view"
-                        [scheme]="colorScheme"
-                        [results]="multi"
-                        [gradient]="gradient"
-                        [xAxis]="showXAxis"
-                        [yAxis]="showYAxis"
-                        [legend]="showLegend"
-                        [showXAxisLabel]="showXAxisLabel"
-                        [showYAxisLabel]="showYAxisLabel"
-                        [xAxisLabel]="xAxisLabel"
-                        [yAxisLabel]="yAxisLabel"
-                        [autoScale]="autoScale"
-                        (select)="onSelect($event)">
-                </ngx-charts-line-chart>
-            </md-card-content>
-        </md-card>
 
-        <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="48">
+        <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="51">
             <md-card-header>
                 <div class="home__chart__title" fxLayout fxLayoutAlign="space-between center">
                     <span>Chart title here</span>
@@ -145,21 +154,29 @@
                 </div>
             </md-card-header>
             <md-card-content class="home__chart__content">
-                <ngx-charts-line-chart
+
+                <!--<ngx-charts-tree-map-->
+                        <!--[view]="view"-->
+                        <!--[scheme]="colorScheme"-->
+                        <!--[results]="single"-->
+                        <!--(select)="onSelect($event)">-->
+                <!--</ngx-charts-tree-map>-->
+
+                <ngx-charts-bar-vertical
                         [view]="view"
                         [scheme]="colorScheme"
-                        [results]="multi"
+                        [results]="single"
                         [gradient]="gradient"
                         [xAxis]="showXAxis"
                         [yAxis]="showYAxis"
-                        [legend]="showLegend"
+                        [legend]= false
                         [showXAxisLabel]="showXAxisLabel"
                         [showYAxisLabel]="showYAxisLabel"
                         [xAxisLabel]="xAxisLabel"
                         [yAxisLabel]="yAxisLabel"
-                        [autoScale]="autoScale"
                         (select)="onSelect($event)">
-                </ngx-charts-line-chart>
+                </ngx-charts-bar-vertical>
+
             </md-card-content>
         </md-card>
     </div>
