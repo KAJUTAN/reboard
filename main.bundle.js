@@ -532,10 +532,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+// import {Guser} from '../core/models/guser.model';
 var API_URL = 'https://api.github.com/users';
 var GITHUB_FOUNDER = 'mojombo';
+var REPO = 'angular/material2';
+var REPOS_URL = 'https://api.github.com/repos/';
 var USERS_MOCK = 'assets/mocks/github-users.json';
 var FOUNDER_MOCK = 'assets/mocks/github-founder.json';
+var PARTICIPATION_MOCK = 'assets/mocks/github/participation.json';
+var LANGUAGES_MOCK = 'assets/mocks/github/languages.json';
+var CONTRIBUTORS_MOCK = 'assets/mocks/github/contributors.json';
+var REPO_INFO_MOCK = 'assets/mocks/github/repo-info.json';
 var GithubService = (function () {
     function GithubService(http) {
         this.http = http;
@@ -549,6 +556,28 @@ var GithubService = (function () {
     GithubService.prototype.getFounder = function () {
         // return this.http.get(API_URL + '/' + GITHUB_FOUNDER, {cache: true})
         return this.http.get(FOUNDER_MOCK, { cache: true })
+            .map(function (res) { return res.json(); })
+            .catch(function () { return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of('Sorry, something went wrong, try again in a minute'); });
+    };
+    GithubService.prototype.getRepoInfo = function () {
+        // return this.http.get(REPOS_URL + REPO, {cache: true})
+        return this.http.get(REPO_INFO_MOCK, { cache: true })
+            .map(function (res) { return res.json(); })
+            .catch(function () { return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of('Sorry, something went wrong, try again in a minute'); });
+    };
+    GithubService.prototype.getParticipation = function () {
+        // return this.http.get(REPOS_URL + REPO + 'stats/participation', {cache: true})
+        return this.http.get(PARTICIPATION_MOCK, { cache: true })
+            .map(function (res) { return res.json(); })
+            .catch(function () { return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of('Sorry, something went wrong, try again in a minute'); });
+    };
+    GithubService.prototype.getLanguages = function () {
+        return this.http.get(LANGUAGES_MOCK, { cache: true })
+            .map(function (res) { return res.json(); })
+            .catch(function () { return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of('Sorry, something went wrong, try again in a minute'); });
+    };
+    GithubService.prototype.getContributors = function () {
+        return this.http.get(CONTRIBUTORS_MOCK, { cache: true })
             .map(function (res) { return res.json(); })
             .catch(function () { return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of('Sorry, something went wrong, try again in a minute'); });
     };
@@ -1742,7 +1771,7 @@ HomeRoutingModule = __decorate([
 /***/ "../../../../../src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"home\" fxLayout=\"column\" fxLayoutAlign=\"center flex-start\">\n\n    <div class=\"home__stats\" fxFlex=\"701px\" fxFlex.sm=\"350px\" fxFlex.gt-sm=\"170px\" fxLayout fxLayout.lt-md=\"row wrap\" fxLayoutAlign=\"space-between flex-start\">\n        <md-card class=\"home__stat home__stat--red\" fxFlex=\"100\" fxFlex.gt-xs=\"47\" *ngIf=\"!isLoading\">\n            <md-card-header>\n                <md-card-title class=\"home__stat__title\">{{founder.public_repos}}</md-card-title>\n                <md-card-subtitle class=\"home__stat__subtitle\">public repos</md-card-subtitle>\n            </md-card-header>\n            <md-card-actions class=\"home__stat__actions\">\n                <button md-icon-button>\n                    <md-icon>more_vert</md-icon>\n                </button>\n            </md-card-actions>\n        </md-card>\n\n        <md-card class=\"home__stat home__stat--blue\" fxFlex=\"100\" fxFlex.gt-xs=\"47\" *ngIf=\"!isLoading\">\n            <md-card-header>\n                <md-card-title class=\"home__stat__title\">{{founder.public_gists}}</md-card-title>\n                <md-card-subtitle class=\"home__stat__subtitle\">public gists</md-card-subtitle>\n            </md-card-header>\n            <md-card-actions class=\"home__stat__actions\">\n                <button md-icon-button>\n                    <md-icon>more_vert</md-icon>\n                </button>\n            </md-card-actions>\n        </md-card>\n\n        <md-card class=\"home__stat home__stat--orange\" fxFlex=\"100\" fxFlex.gt-xs=\"47\" *ngIf=\"!isLoading\">\n            <md-card-header>\n                <md-card-title class=\"home__stat__title\">{{founder.followers}}</md-card-title>\n                <md-card-subtitle class=\"home__stat__subtitle\">followers</md-card-subtitle>\n            </md-card-header>\n            <md-card-actions class=\"home__stat__actions\">\n                <button md-icon-button>\n                    <md-icon>more_vert</md-icon>\n                </button>\n            </md-card-actions>\n        </md-card>\n\n        <md-card class=\"home__stat home__stat--green\" fxFlex=\"100\" fxFlex.gt-xs=\"47\" *ngIf=\"!isLoading\">\n            <md-card-header>\n                <md-card-title class=\"home__stat__title\">{{founder.following}}</md-card-title>\n                <md-card-subtitle class=\"home__stat__subtitle\">following</md-card-subtitle>\n            </md-card-header>\n            <md-card-actions class=\"home__stat__actions\">\n                <button md-icon-button>\n                    <md-icon>more_vert</md-icon>\n                </button>\n            </md-card-actions>\n        </md-card>\n    </div>\n\n    <div class=\"home__charts\" fxLayout=\"row wrap\" fxLayoutAlign=\"space-between flex-start\">\n        <md-card class=\"home__chart\" fxFlex=\"100\" fxFlex.gt-sm=\"61\">\n            <md-card-header>\n                <div class=\"home__chart__title\" fxLayout fxLayoutAlign=\"space-between center\">\n                    <span>Chart title here</span>\n                    <button md-icon-button>\n                        <md-icon>more_vert</md-icon>\n                    </button>\n                </div>\n            </md-card-header>\n            <md-card-content class=\"home__chart__content\">\n                <ngx-charts-line-chart\n                        [view]=\"view\"\n                        [scheme]=\"colorScheme\"\n                        [results]=\"multi\"\n                        [gradient]=\"gradient\"\n                        [xAxis]=\"showXAxis\"\n                        [yAxis]=\"showYAxis\"\n                        [legend]=\"showLegend\"\n                        [legendTitle]=\"legendTitle\"\n                        [showXAxisLabel]=\"showXAxisLabel\"\n                        [showYAxisLabel]=\"showYAxisLabel\"\n                        [xAxisLabel]=\"xAxisLabel\"\n                        [yAxisLabel]=\"yAxisLabel\"\n                        [autoScale]=\"autoScale\"\n                        (select)=\"onSelect($event)\">\n                </ngx-charts-line-chart>\n            </md-card-content>\n        </md-card>\n\n        <md-card class=\"home__chart\" fxFlex=\"100\" fxFlex.gt-sm=\"35.3\">\n            <md-card-header>\n                <div class=\"home__chart__title\" fxLayout fxLayoutAlign=\"space-between center\">\n                    <span>Folders</span>\n                    <button md-icon-button>\n                        <md-icon>more_vert</md-icon>\n                    </button>\n                </div>\n            </md-card-header>\n            <!--<md-card-content class=\"home__chart__content\">-->\n\n                <md-list>\n                    <md-list-item *ngFor=\"let folder of folders\">\n                        <md-icon md-list-icon>folder</md-icon>\n                        <h4 md-line>{{folder.name}}</h4>\n                        <p md-line> {{folder.updated | date}} </p>\n                    </md-list-item>\n                </md-list>\n\n                <!--<ngx-charts-bar-vertical-->\n                        <!--[view]=\"view\"-->\n                        <!--[scheme]=\"colorScheme\"-->\n                        <!--[results]=\"single\"-->\n                        <!--[gradient]=\"gradient\"-->\n                        <!--[xAxis]=\"showXAxis\"-->\n                        <!--[yAxis]=\"showYAxis\"-->\n                        <!--[legend]= false-->\n                        <!--[showXAxisLabel]=\"showXAxisLabel\"-->\n                        <!--[showYAxisLabel]=\"showYAxisLabel\"-->\n                        <!--[xAxisLabel]=\"xAxisLabel\"-->\n                        <!--[yAxisLabel]=\"yAxisLabel\"-->\n                        <!--(select)=\"onSelect($event)\">-->\n                <!--</ngx-charts-bar-vertical>-->\n            <!--</md-card-content>-->\n        </md-card>\n\n        <md-card class=\"home__chart\" fxFlex=\"100\" fxFlex.gt-sm=\"45.3\">\n            <md-card-header>\n                <div class=\"home__chart__title\" fxLayout fxLayoutAlign=\"space-between center\">\n                    <span>Chart title here</span>\n                    <button md-icon-button>\n                        <md-icon>more_vert</md-icon>\n                    </button>\n                </div>\n            </md-card-header>\n            <md-card-content class=\"home__chart__content\">\n\n                <ngx-charts-pie-chart\n                        [view]=\"view\"\n                        [scheme]=\"colorScheme\"\n                        [results]=\"single\"\n                        [legend]=\"showLegend\"\n                        [legendTitle]=\"legendTitle\"\n                        [gradient]=\"gradient\"\n                        (select)=\"onSelect($event)\">\n                </ngx-charts-pie-chart>\n\n            </md-card-content>\n        </md-card>\n\n\n        <md-card class=\"home__chart\" fxFlex=\"100\" fxFlex.gt-sm=\"51\">\n            <md-card-header>\n                <div class=\"home__chart__title\" fxLayout fxLayoutAlign=\"space-between center\">\n                    <span>Chart title here</span>\n                    <button md-icon-button>\n                        <md-icon>more_vert</md-icon>\n                    </button>\n                </div>\n            </md-card-header>\n            <md-card-content class=\"home__chart__content\">\n\n                <!--<ngx-charts-tree-map-->\n                        <!--[view]=\"view\"-->\n                        <!--[scheme]=\"colorScheme\"-->\n                        <!--[results]=\"single\"-->\n                        <!--(select)=\"onSelect($event)\">-->\n                <!--</ngx-charts-tree-map>-->\n\n                <ngx-charts-bar-vertical\n                        [view]=\"view\"\n                        [scheme]=\"colorScheme\"\n                        [results]=\"single\"\n                        [gradient]=\"gradient\"\n                        [xAxis]=\"showXAxis\"\n                        [yAxis]=\"showYAxis\"\n                        [legend]= false\n                        [showXAxisLabel]=\"showXAxisLabel\"\n                        [showYAxisLabel]=\"showYAxisLabel\"\n                        [xAxisLabel]=\"xAxisLabel\"\n                        [yAxisLabel]=\"yAxisLabel\"\n                        (select)=\"onSelect($event)\">\n                </ngx-charts-bar-vertical>\n\n            </md-card-content>\n        </md-card>\n    </div>\n</div>\n"
+module.exports = "<div class=\"home\" fxLayout=\"column\" fxLayoutAlign=\"center flex-start\">\n\n    <div class=\"home__stats\" fxFlex=\"701px\" fxFlex.sm=\"350px\" fxFlex.gt-sm=\"170px\" fxLayout fxLayout.lt-md=\"row wrap\"\n         fxLayoutAlign=\"space-between flex-start\">\n        <md-card class=\"home__stat home__stat--red\" fxFlex=\"100\" fxFlex.gt-xs=\"47\" *ngIf=\"!isLoading\">\n            <md-card-header>\n                <md-card-title class=\"home__stat__title\">{{repoInfo.stargazers_count.toLocaleString()}}</md-card-title>\n                <md-card-subtitle class=\"home__stat__subtitle\">stargazers</md-card-subtitle>\n            </md-card-header>\n            <md-card-actions class=\"home__stat__actions\">\n                <button md-icon-button>\n                    <md-icon>more_vert</md-icon>\n                </button>\n            </md-card-actions>\n        </md-card>\n\n        <md-card class=\"home__stat home__stat--blue\" fxFlex=\"100\" fxFlex.gt-xs=\"47\" *ngIf=\"!isLoading\">\n            <md-card-header>\n                <md-card-title class=\"home__stat__title\">{{repoInfo.forks.toLocaleString()}}</md-card-title>\n                <md-card-subtitle class=\"home__stat__subtitle\">forks</md-card-subtitle>\n            </md-card-header>\n            <md-card-actions class=\"home__stat__actions\">\n                <button md-icon-button>\n                    <md-icon>more_vert</md-icon>\n                </button>\n            </md-card-actions>\n        </md-card>\n\n        <md-card class=\"home__stat home__stat--orange\" fxFlex=\"100\" fxFlex.gt-xs=\"47\" *ngIf=\"!isLoading\">\n            <md-card-header>\n                <md-card-title class=\"home__stat__title\">{{repoInfo.open_issues.toLocaleString()}}</md-card-title>\n                <md-card-subtitle class=\"home__stat__subtitle\">open issues</md-card-subtitle>\n            </md-card-header>\n            <md-card-actions class=\"home__stat__actions\">\n                <button md-icon-button>\n                    <md-icon>more_vert</md-icon>\n                </button>\n            </md-card-actions>\n        </md-card>\n\n        <md-card class=\"home__stat home__stat--green\" fxFlex=\"100\" fxFlex.gt-xs=\"47\" *ngIf=\"!isLoading\">\n            <md-card-header>\n                <md-card-title class=\"home__stat__title\">{{repoInfo.size.toLocaleString()}}</md-card-title>\n                <md-card-subtitle class=\"home__stat__subtitle\">size in Kb</md-card-subtitle>\n            </md-card-header>\n            <md-card-actions class=\"home__stat__actions\">\n                <button md-icon-button>\n                    <md-icon>more_vert</md-icon>\n                </button>\n            </md-card-actions>\n        </md-card>\n    </div>\n\n    <div class=\"home__charts\" fxLayout=\"row wrap\" fxLayoutAlign=\"space-between flex-start\">\n        <md-card class=\"home__chart\" fxFlex=\"100\" fxFlex.gt-sm=\"61\">\n            <md-card-header>\n                <div class=\"home__chart__title\" fxLayout fxLayoutAlign=\"space-between center\">\n                    <span>Contributions (last year)</span>\n                    <button md-icon-button>\n                        <md-icon>more_vert</md-icon>\n                    </button>\n                </div>\n            </md-card-header>\n            <md-card-content class=\"home__chart__content\">\n                <ngx-charts-line-chart *ngIf=\"!isLoading\"\n                                       [scheme]=\"colorScheme\"\n                                       [results]=\"commits\"\n                                       [gradient]=\"gradient\"\n                                       [xAxis]=\"showXAxis\"\n                                       [yAxis]=\"showYAxis\"\n                                       [showXAxisLabel]=\"showXAxisLabel\"\n                                       [showYAxisLabel]=\"showYAxisLabel\"\n                                       [xAxisLabel]=\"xAxisLabel\"\n                                       [yAxisLabel]=\"yAxisLabel\"\n                                       [autoScale]=\"autoScale\"\n                                       (select)=\"onSelect($event)\">\n                </ngx-charts-line-chart>\n            </md-card-content>\n        </md-card>\n\n        <md-card class=\"home__chart\" fxFlex=\"100\" fxFlex.gt-sm=\"35.3\">\n            <md-card-header>\n                <div class=\"home__chart__title\" fxLayout fxLayoutAlign=\"space-between center\">\n                    <span>Folders</span>\n                    <button md-icon-button>\n                        <md-icon>more_vert</md-icon>\n                    </button>\n                </div>\n            </md-card-header>\n            <!--<md-card-content class=\"home__chart__content\">-->\n\n            <md-list>\n                <md-list-item *ngFor=\"let folder of folders\">\n                    <md-icon md-list-icon>folder</md-icon>\n                    <h4 md-line>{{folder.name}}</h4>\n                    <p md-line> {{folder.updated | date}} </p>\n                </md-list-item>\n            </md-list>\n\n            <!--<ngx-charts-bar-vertical-->\n            <!--[view]=\"view\"-->\n            <!--[scheme]=\"colorScheme\"-->\n            <!--[results]=\"single\"-->\n            <!--[gradient]=\"gradient\"-->\n            <!--[xAxis]=\"showXAxis\"-->\n            <!--[yAxis]=\"showYAxis\"-->\n            <!--[legend]= false-->\n            <!--[showXAxisLabel]=\"showXAxisLabel\"-->\n            <!--[showYAxisLabel]=\"showYAxisLabel\"-->\n            <!--[xAxisLabel]=\"xAxisLabel\"-->\n            <!--[yAxisLabel]=\"yAxisLabel\"-->\n            <!--(select)=\"onSelect($event)\">-->\n            <!--</ngx-charts-bar-vertical>-->\n            <!--</md-card-content>-->\n        </md-card>\n\n        <md-card class=\"home__chart\" fxFlex=\"100\" fxFlex.gt-sm=\"45.3\">\n            <md-card-header>\n                <div class=\"home__chart__title\" fxLayout fxLayoutAlign=\"space-between center\">\n                    <span>Languages</span>\n                    <button md-icon-button>\n                        <md-icon>more_vert</md-icon>\n                    </button>\n                </div>\n            </md-card-header>\n            <md-card-content class=\"home__chart__content\">\n\n                <ngx-charts-pie-chart *ngIf=\"!isLoading\"\n                                      [scheme]=\"colorScheme\"\n                                      [results]=\"languages\"\n                                      [legend]=false\n                                      [gradient]=\"gradient\"\n                                      [labels]=true\n                                      [doughnut]=true\n                                      (select)=\"onSelect($event)\">\n                </ngx-charts-pie-chart>\n\n            </md-card-content>\n        </md-card>\n\n\n        <md-card class=\"home__chart\" fxFlex=\"100\" fxFlex.gt-sm=\"51\">\n            <md-card-header>\n                <div class=\"home__chart__title\" fxLayout fxLayoutAlign=\"space-between center\">\n                    <span>Top contributors</span>\n                    <button md-icon-button>\n                        <md-icon>more_vert</md-icon>\n                    </button>\n                </div>\n            </md-card-header>\n            <md-card-content class=\"home__chart__content\">\n\n                <!--<ngx-charts-tree-map-->\n                        <!--*ngIf=\"!isLoading\"-->\n                <!--[view]=\"view\"-->\n                <!--[scheme]=\"colorScheme\"-->\n                <!--[results]=\"contributors\"-->\n                <!--(select)=\"onSelect($event)\">-->\n                <!--</ngx-charts-tree-map>-->\n\n                <ngx-charts-bar-vertical\n                        *ngIf=\"!isLoading\"\n                        [scheme]=\"colorScheme\"\n                        [results]=\"contributors\"\n                        [gradient]=\"gradient\"\n                        [xAxis]=\"showXAxis\"\n                        [yAxis]=\"showYAxis\"\n                        [legend]=false\n                        (select)=\"onSelect($event)\">\n                </ngx-charts-bar-vertical>\n\n            </md-card-content>\n        </md-card>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -1792,6 +1821,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+// import {Guser} from '../core/models/guser.model';
 
 
 
@@ -1799,7 +1829,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomeComponent = (function () {
     function HomeComponent(githubService) {
         this.githubService = githubService;
-        //
+        // TODO: Use an interface here
+        this.commits = [
+            {
+                'name': 'Commits',
+                'series': []
+            }
+        ];
+        this.languages = [];
+        this.contributors = [];
         // options
         this.showXAxis = true;
         this.showYAxis = true;
@@ -1807,13 +1845,9 @@ var HomeComponent = (function () {
         this.showLegend = true;
         this.legendTitle = '';
         this.showXAxisLabel = true;
-        this.xAxisLabel = 'Country';
+        this.xAxisLabel = 'Week';
         this.showYAxisLabel = true;
-        this.yAxisLabel = 'Population';
-        // red: FE7675
-        // blue: 2DABE5
-        // orange: FFC36D
-        // green: 54E69D
+        this.yAxisLabel = 'Commits';
         this.colorScheme = {
             domain: ['#FE7675', '#2095F2', '#4DAE4E', '#FE9900']
         };
@@ -1822,15 +1856,15 @@ var HomeComponent = (function () {
         this.folders = [
             {
                 name: 'Photos',
-                updated: new Date('1/1/16'),
+                updated: new Date('1/1/16')
             },
             {
                 name: 'Recipes',
-                updated: new Date('1/17/16'),
+                updated: new Date('1/17/16')
             },
             {
                 name: 'Work',
-                updated: new Date('1/28/16'),
+                updated: new Date('1/28/16')
             }
         ];
         Object.assign(this, { single: __WEBPACK_IMPORTED_MODULE_6__data__["a" /* single */], multi: __WEBPACK_IMPORTED_MODULE_6__data__["b" /* multi */] });
@@ -1841,7 +1875,11 @@ var HomeComponent = (function () {
         __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"]
             .forkJoin([
             this.githubService.getFounder(),
-            this.githubService.getUsers()
+            this.githubService.getUsers(),
+            this.githubService.getParticipation(),
+            this.githubService.getLanguages(),
+            this.githubService.getContributors(),
+            this.githubService.getRepoInfo()
         ])
             .finally(function () {
             _this.isLoading = false;
@@ -1849,6 +1887,20 @@ var HomeComponent = (function () {
             .subscribe(function (results) {
             _this.founder = results[0];
             _this.users = results[1];
+            results[2].all.map(function (obj, idx) {
+                return _this.commits[0].series.push({
+                    'name': idx + 1,
+                    'value': obj
+                });
+            });
+            Object.keys(results[3]).map(function (obj, idx) { return _this.languages.push({ 'name': obj, 'value': results[3][obj] }); });
+            results[4].map(function (obj, idx) {
+                if (idx < 10) {
+                    _this.contributors.push({ 'name': obj.login, 'value': obj.contributions });
+                }
+            });
+            // this.totalContributors = results[4].length;
+            _this.repoInfo = results[5];
         }, function (err) {
             console.log(err);
         });
@@ -1874,6 +1926,7 @@ HomeComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/home/home.component.html"),
         styles: [__webpack_require__("../../../../../src/app/home/home.component.scss")],
         encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].None
+        // providers: [ GithubService ]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__core_github_service__["a" /* GithubService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__core_github_service__["a" /* GithubService */]) === "function" && _a || Object])
 ], HomeComponent);
