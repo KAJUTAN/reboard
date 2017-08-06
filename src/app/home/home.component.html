@@ -4,7 +4,7 @@
          fxLayoutAlign="space-between flex-start">
         <md-card class="home__stat home__stat--red" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
             <md-card-header>
-                <md-card-title class="home__stat__title">{{repoInfo.stargazers_count.toLocaleString()}}</md-card-title>
+                <md-card-title class="home__stat__title">{{repoInfo?.stargazers_count.toLocaleString()}}</md-card-title>
                 <md-card-subtitle class="home__stat__subtitle">stargazers</md-card-subtitle>
             </md-card-header>
             <md-card-actions class="home__stat__actions">
@@ -81,7 +81,7 @@
         <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="35.3">
             <md-card-header>
                 <div class="home__chart__title" fxLayout fxLayoutAlign="space-between center">
-                    <span>Folders</span>
+                    <span>Repo stats</span>
                     <button md-icon-button>
                         <md-icon>more_vert</md-icon>
                     </button>
@@ -89,29 +89,14 @@
             </md-card-header>
             <!--<md-card-content class="home__chart__content">-->
 
-            <md-list>
+            <md-list *ngIf="!isLoading">
                 <md-list-item *ngFor="let folder of folders">
-                    <md-icon md-list-icon>folder</md-icon>
-                    <h4 md-line>{{folder.name}}</h4>
-                    <p md-line> {{folder.updated | date}} </p>
+                    <md-icon md-list-icon color="accent">{{folder.icon}}</md-icon>
+                    <h4 md-line>{{folder.text}}</h4>
+                    <p md-line> {{folder.subtext}} </p>
                 </md-list-item>
             </md-list>
 
-            <!--<ngx-charts-bar-vertical-->
-            <!--[view]="view"-->
-            <!--[scheme]="colorScheme"-->
-            <!--[results]="single"-->
-            <!--[gradient]="gradient"-->
-            <!--[xAxis]="showXAxis"-->
-            <!--[yAxis]="showYAxis"-->
-            <!--[legend]= false-->
-            <!--[showXAxisLabel]="showXAxisLabel"-->
-            <!--[showYAxisLabel]="showYAxisLabel"-->
-            <!--[xAxisLabel]="xAxisLabel"-->
-            <!--[yAxisLabel]="yAxisLabel"-->
-            <!--(select)="onSelect($event)">-->
-            <!--</ngx-charts-bar-vertical>-->
-            <!--</md-card-content>-->
         </md-card>
 
         <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="45.3">

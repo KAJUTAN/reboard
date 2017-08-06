@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
     // totalContributors: any;
     repoInfo: any;
 
+    // = {
+    //     'stargazers_count': 0
+    // };
+
     // options
     showXAxis = true;
     showYAxis = true;
@@ -51,18 +55,26 @@ export class HomeComponent implements OnInit {
     // line, area
     autoScale = true;
 
-    folders = [
+    folders: any[] = [
         {
-            name: 'Photos',
-            updated: new Date('1/1/16')
+            text: 0,
+            icon: 'star',
+            subtext: 'stargazers'
         },
         {
-            name: 'Recipes',
-            updated: new Date('1/17/16')
+            text: 0,
+            icon: 'content_copy',
+            subtext: 'forks'
         },
         {
-            name: 'Work',
-            updated: new Date('1/28/16')
+            text: 0,
+            icon: 'bug_report',
+            subtext: 'open issues'
+        },
+        {
+            text: 0,
+            icon: 'code',
+            subtext: 'size in Kb'
         }
     ];
 
@@ -109,6 +121,10 @@ export class HomeComponent implements OnInit {
                 );
                 // this.totalContributors = results[4].length;
                 this.repoInfo = results[5];
+                this.folders[0].text = this.repoInfo.stargazers_count.toLocaleString();
+                this.folders[1].text = this.repoInfo.forks.toLocaleString();
+                this.folders[2].text = this.repoInfo.open_issues.toLocaleString();
+                this.folders[3].text = this.repoInfo.size.toLocaleString();
             }, err => {
                 console.log(err);
             });
