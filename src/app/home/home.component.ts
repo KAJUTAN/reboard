@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/finally';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GithubService} from '../core/github.service';
-import {Guser} from '../core/models/guser.model';
+// import {Guser} from '../core/models/guser.model';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
@@ -17,17 +17,21 @@ import {single, multi} from './data';
     encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-
-    users: Guser[];
-    founder: Guser; // TODO: Don't like this
+    //
+    users: any;
+    founder: any;
     isLoading: boolean;
-
-    //
-    single: any[];
-    multi: any[];
-    // view: any[] = [undefined, undefined];
-    view: any;
-    //
+    // TODO: Use an interface here
+    commits: any[] = [
+        {
+            'name': 'Commits',
+            'series': []
+        }
+    ];
+    languages: any[] = [];
+    contributors: any[] = [];
+    // totalContributors: any;
+    repoInfo: any;
 
     // options
     showXAxis = true;
@@ -36,15 +40,9 @@ export class HomeComponent implements OnInit {
     showLegend = true;
     legendTitle = '';
     showXAxisLabel = true;
-    xAxisLabel = 'Country';
+    xAxisLabel = 'Week';
     showYAxisLabel = true;
-    yAxisLabel = 'Population';
-
-
-    // red: FE7675
-    // blue: 2DABE5
-    // orange: FFC36D
-    // green: 54E69D
+    yAxisLabel = 'Commits';
 
     colorScheme = {
         domain: ['#FE7675', '#2095F2', '#4DAE4E', '#FE9900']
@@ -56,15 +54,15 @@ export class HomeComponent implements OnInit {
     folders = [
         {
             name: 'Photos',
-            updated: new Date('1/1/16'),
+            updated: new Date('1/1/16')
         },
         {
             name: 'Recipes',
-            updated: new Date('1/17/16'),
+            updated: new Date('1/17/16')
         },
         {
             name: 'Work',
-            updated: new Date('1/28/16'),
+            updated: new Date('1/28/16')
         }
     ];
 
@@ -78,7 +76,11 @@ export class HomeComponent implements OnInit {
         Observable
             .forkJoin([
                 this.githubService.getFounder(),
-                this.githubService.getUsers()
+                this.githubService.getUsers(),
+                this.githubService.getParticipation(),
+                this.githubService.getLanguages(),
+                this.githubService.getContributors(),
+                this.githubService.getRepoInfo()
             ])
             .finally(() => {
                 this.isLoading = false;
@@ -86,6 +88,27 @@ export class HomeComponent implements OnInit {
             .subscribe(results => {
                 this.founder = results[0];
                 this.users = results[1];
+                results[2].all.map((obj: any, idx: number) =>
+                    this.commits[0].series.push({
+                        'name': idx + 1,
+                        'value': obj
+                    }));
+                Object.keys(results[3]).map(
+                    (obj, idx) => this.languages.push(
+                        {'name': obj, 'value': results[3][obj]}
+                    )
+                );
+                results[4].map(
+                    (obj: any, idx: number) => {
+                        if (idx < 10) {
+                            this.contributors.push(
+                                {'name': obj.login, 'value': obj.contributions}
+                            )
+                        }
+                    }
+                );
+                // this.totalContributors = results[4].length;
+                this.repoInfo = results[5];
             }, err => {
                 console.log(err);
             });
