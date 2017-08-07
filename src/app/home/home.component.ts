@@ -5,7 +5,7 @@ import {GithubService} from '../core/github.service';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/map';
 
 import {single, multi} from './data';
 

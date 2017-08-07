@@ -15,9 +15,10 @@
     }
 
     .mat-tab-body-content {
-      align-items: center;
+      //align-items: center;
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: space-around;
     }
 
     .mat-tab-body {
@@ -27,9 +28,10 @@
 
   &__card {
     &__img.mat-card-avatar {
-      height: 50px;
-      width: 50px;
-      border-radius: 5%;
+      //height: 50px;
+      //width: 50px;
+      //border-radius: 5%;
+      float: left;
     }
 
     &.mat-card {
@@ -47,15 +49,19 @@
       }
 
       @media (min-width: 768px) {
-        width: 60%;
+        width: 40%;
       }
     }
   }
 
-  &__fab {
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
-    z-index: 2;
+  &__actions {
+    padding: 0 16px !important;
   }
+
+  //&__fab {
+  //  position: absolute;
+  //  bottom: 24px;
+  //  right: 24px;
+  //  z-index: 2;
+  //}
 }
