@@ -13,7 +13,6 @@ import {CoreModule} from '../core/core.module';
 import {SharedModule} from '../shared/shared.module';
 import {IssuesRoutingModule} from './issues-routing.module';
 import {IssuesComponent} from './issues.component';
-import {SoundcloudService} from '../core/soundcloud.service';
 
 
 @NgModule({
@@ -32,9 +31,7 @@ import {SoundcloudService} from '../core/soundcloud.service';
     declarations: [
         IssuesComponent
     ],
-    providers: [
-        SoundcloudService
-    ]
+    providers: []
 })
 export class IssuesModule {
 }

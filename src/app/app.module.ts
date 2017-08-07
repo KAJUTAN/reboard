@@ -15,9 +15,7 @@ import {SharedModule} from './shared/shared.module';
 import {HomeModule} from './home/home.module';
 import {IssuesModule} from './issues/issues.module';
 import {AboutModule} from './about/about.module';
-import {PlayerModule} from './player/player.module';
-
-import {SoundcloudService} from './core/soundcloud.service';
+import {GithubService} from './core/github.service';
 
 
 @NgModule({
@@ -33,11 +31,10 @@ import {SoundcloudService} from './core/soundcloud.service';
         HomeModule,
         IssuesModule,
         AboutModule,
-        AppRoutingModule,
-        PlayerModule
+        AppRoutingModule
     ],
     declarations: [AppComponent],
-    providers: [SoundcloudService],
+    providers: [GithubService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

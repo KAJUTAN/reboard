@@ -2,7 +2,6 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {I18nService} from '../../i18n.service';
 import {MdSnackBar} from '@angular/material';
-import {PlayerComponent} from '../../../player/player.component';
 
 @Component({
     selector: 'app-header',
@@ -41,6 +40,6 @@ export class HeaderComponent implements OnInit {
     // }
 
     openSnackBar() {
-        this.snackBar.openFromComponent(PlayerComponent);
+        // this.snackBar.openFromComponent(PlayerComponent);
     }
 }
