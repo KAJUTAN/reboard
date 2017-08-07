@@ -1,42 +1,30 @@
 <div class="issues">
-
-  <md-tab-group class="issues__tabs">
-    <md-tab label="Open" fxLayout="row wrap">
-      <md-card class="issues__card" *ngFor="let issue of openIssues">
-        <md-card-header>
-          <div md-card-avatar class="issues__card__img" [ngStyle]="{'background-image': 'url(' + issue.user.avatar_url + ')'}"></div>
-          <md-card-title>Issue <strong>{{issue.number}}</strong> by {{issue.user.login}}</md-card-title>
-          <md-card-subtitle>{{issue.title}}</md-card-subtitle>
-        </md-card-header>
-        <md-card-actions class="issues__actions" fxLayoutAlign="space-between center">
-          <div class="issues__actions__text">Created at {{issue.created_at | date}}</div>
-          <a href="{{issue.html_url}}" target="_blank" title="Open in Github" md-icon-button>
-            <md-icon>open_in_new</md-icon>
-          </a>
-        </md-card-actions>
-      </md-card>
-    </md-tab>
-
-    <md-tab label="Closed">
-      <md-card class="issues__card" *ngFor="let issue of openIssues">
-        <md-card-header>
-          <div md-card-avatar class="issues__card__img" [ngStyle]="{'background-image': 'url(' + issue.user.avatar_url + ')'}"></div>
-          <md-card-title>Issue <strong>{{issue.number}}</strong> by {{issue.user.login}}</md-card-title>
-          <md-card-subtitle>{{issue.title}}</md-card-subtitle>
-        </md-card-header>
-        <md-card-actions class="issues__actions" fxLayoutAlign="space-between center">
-          <div class="issues__actions__text">Created at {{issue.created_at | date}}</div>
-          <a href="{{issue.html_url}}" target="_blank" title="Open in Github" md-icon-button>
-            <md-icon>open_in_new</md-icon>
-          </a>
-        </md-card-actions>
-      </md-card>
-    </md-tab>
-
-  </md-tab-group>
-
-  <!--<button md-fab class="home__fab">-->
-    <!--<md-icon>shuffle</md-icon>-->
-  <!--</button>-->
-
+    <md-tab-group class="issues__tabs">
+        <md-tab label="Open" fxLayout="row wrap">
+            <md-card class="issues__card" *ngFor="let issue of openIssues">
+                <md-card-header>
+                    <div md-card-avatar [ngStyle]="{'background-image': 'url(' + issue.user.avatar_url + ')'}"></div>
+                    <md-card-title>Issue <strong>{{issue.number}}</strong> by {{issue.user.login}}</md-card-title>
+                    <md-card-subtitle>{{issue.title}} <br/><br/> <i>Created at {{issue.created_at | date}}</i>
+                    </md-card-subtitle>
+                </md-card-header>
+                <md-card-actions fxLayoutAlign="end center" fxFlexAlign="end">
+                    <a md-button href="{{issue.html_url}}" target="_blank" color="accent">OPEN IN GITHUB</a>
+                </md-card-actions>
+            </md-card>
+        </md-tab>
+        <md-tab label="Closed">
+            <md-card class="issues__card" *ngFor="let issue of closedIssues">
+                <md-card-header>
+                    <div md-card-avatar [ngStyle]="{'background-image': 'url(' + issue.user.avatar_url + ')'}"></div>
+                    <md-card-title>Issue <strong>{{issue.number}}</strong> by {{issue.user.login}}</md-card-title>
+                    <md-card-subtitle>{{issue.title}} <br/><br/> <i>Closed at {{issue.closed_at | date}}</i>
+                    </md-card-subtitle>
+                </md-card-header>
+                <md-card-actions fxLayoutAlign="end center" fxFlexAlign="end">
+                    <a md-button href="{{issue.html_url}}" target="_blank" color="accent">OPEN IN GITHUB</a>
+                </md-card-actions>
+            </md-card>
+        </md-tab>
+    </md-tab-group>
 </div>

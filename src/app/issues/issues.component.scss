@@ -27,13 +27,6 @@
   }
 
   &__card {
-    &__img.mat-card-avatar {
-      //height: 50px;
-      //width: 50px;
-      //border-radius: 5%;
-      float: left;
-    }
-
     &.mat-card {
       width: 90%;
       margin-top: 15px;
@@ -54,14 +47,4 @@
     }
   }
 
-  &__actions {
-    padding: 0 16px !important;
-  }
-
-  //&__fab {
-  //  position: absolute;
-  //  bottom: 24px;
-  //  right: 24px;
-  //  z-index: 2;
-  //}
 }
