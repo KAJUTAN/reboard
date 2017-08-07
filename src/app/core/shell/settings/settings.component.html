@@ -1,0 +1,24 @@
+<div class="settings">
+    <header class="settings__header">Settings</header>
+    <md-list>
+        <md-list-item>
+            <div md-line>Use real data</div>
+            <md-slide-toggle></md-slide-toggle>
+        </md-list-item>
+        <md-list-item>
+
+            <form class="example-form">
+                <md-input-container class="example-full-width">
+                    <input mdInput placeholder="Email" [formControl]="emailFormControl">
+                    <md-error *ngIf="emailFormControl.hasError('pattern')">
+                        Please enter a valid email address
+                    </md-error>
+                    <md-error *ngIf="emailFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </md-error>
+                </md-input-container>
+            </form>
+
+        </md-list-item>
+    </md-list>
+</div>

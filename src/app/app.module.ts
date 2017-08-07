@@ -14,7 +14,6 @@ import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
 import {HomeModule} from './home/home.module';
 import {IssuesModule} from './issues/issues.module';
-import {AboutModule} from './about/about.module';
 import {GithubService} from './core/github.service';
 
 
@@ -30,7 +29,6 @@ import {GithubService} from './core/github.service';
         SharedModule,
         HomeModule,
         IssuesModule,
-        AboutModule,
         AppRoutingModule
     ],
     declarations: [AppComponent],

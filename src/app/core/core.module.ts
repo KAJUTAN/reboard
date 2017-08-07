@@ -13,9 +13,14 @@ import {MdSidenavModule} from '@angular/material';
 import {MdListModule} from '@angular/material';
 import {MdMenuModule} from '@angular/material';
 import {MdSnackBarModule} from '@angular/material';
+import {MdDialogModule} from '@angular/material';
+import {MdSlideToggleModule} from '@angular/material';
+import {MdInputModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {ShellComponent} from './shell/shell.component';
 import {HeaderComponent} from './shell/header/header.component';
+import {SettingsComponent} from './shell/settings/settings.component';
 import {I18nService} from './i18n.service';
 import {HttpService} from './http/http.service';
 import {HttpCacheService} from './http/http-cache.service';
@@ -39,14 +44,20 @@ export function createHttpService(backend: ConnectionBackend,
         MdSidenavModule,
         MdListModule,
         MdMenuModule,
-        MdSnackBarModule
+        MdSnackBarModule,
+        MdDialogModule,
+        MdSlideToggleModule,
+        MdInputModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
         HeaderComponent
     ],
     declarations: [
         ShellComponent,
-        HeaderComponent
+        HeaderComponent, // TODO: Sure?
+        SettingsComponent
     ],
     providers: [
         I18nService,
@@ -56,6 +67,9 @@ export function createHttpService(backend: ConnectionBackend,
             deps: [XHRBackend, RequestOptions, HttpCacheService],
             useFactory: createHttpService
         }
+    ],
+    entryComponents: [
+        SettingsComponent
     ]
 })
 export class CoreModule {
