@@ -5,12 +5,12 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 
 @Component({
-    selector: 'app-favorites',
-    templateUrl: './favorites.component.html',
-    styleUrls: ['./favorites.component.scss'],
+    selector: 'app-issues',
+    templateUrl: './issues.component.html',
+    styleUrls: ['./issues.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class FavoritesComponent implements OnInit {
+export class IssuesComponent implements OnInit {
 
     openIssues: any[];
     closedIssues: any[];

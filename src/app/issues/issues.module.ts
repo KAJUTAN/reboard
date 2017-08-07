@@ -11,8 +11,8 @@ import {MdIconModule} from '@angular/material';
 
 import {CoreModule} from '../core/core.module';
 import {SharedModule} from '../shared/shared.module';
-import {FavoritesRoutingModule} from './favorites-routing.module';
-import {FavoritesComponent} from './favorites.component';
+import {IssuesRoutingModule} from './issues-routing.module';
+import {IssuesComponent} from './issues.component';
 import {SoundcloudService} from '../core/soundcloud.service';
 
 
@@ -23,18 +23,18 @@ import {SoundcloudService} from '../core/soundcloud.service';
         FlexLayoutModule,
         CoreModule,
         SharedModule,
-        FavoritesRoutingModule,
+        IssuesRoutingModule,
         MdTabsModule,
         MdCardModule,
         MdButtonModule,
         MdIconModule
     ],
     declarations: [
-        FavoritesComponent
+        IssuesComponent
     ],
     providers: [
         SoundcloudService
     ]
 })
-export class FavoritesModule {
+export class IssuesModule {
 }

@@ -23,7 +23,7 @@ export class ShellComponent implements OnInit {
         {
             name: 'Issues',
             icon: 'bug_report',
-            path: '/favorites'
+            path: '/issues'
         }
     ];
 
@@ -33,7 +33,7 @@ export class ShellComponent implements OnInit {
             icon: 'settings'
         },
         {
-            name: 'Github',
+            name: 'Open in Github',
             icon: 'code'
         }
     ];

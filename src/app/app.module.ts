@@ -13,7 +13,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
 import {HomeModule} from './home/home.module';
-import {FavoritesModule} from './favorites/favorites.module';
+import {IssuesModule} from './issues/issues.module';
 import {AboutModule} from './about/about.module';
 import {PlayerModule} from './player/player.module';
 
@@ -31,7 +31,7 @@ import {SoundcloudService} from './core/soundcloud.service';
         CoreModule,
         SharedModule,
         HomeModule,
-        FavoritesModule,
+        IssuesModule,
         AboutModule,
         AppRoutingModule,
         PlayerModule

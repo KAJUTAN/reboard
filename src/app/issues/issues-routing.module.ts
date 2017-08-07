@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { Route } from '../core/route.service';
 import { extract } from '../core/i18n.service';
-import { FavoritesComponent } from './favorites.component';
+import { IssuesComponent } from './issues.component';
 
 const routes: Routes = Route.withShell([
-  { path: 'favorites', component: FavoritesComponent, data: { title: extract('Favorites') } }
+  { path: 'issues', component: IssuesComponent, data: { title: extract('Issues') } }
 ]);
 
 @NgModule({
@@ -14,4 +14,4 @@ const routes: Routes = Route.withShell([
   exports: [RouterModule],
   providers: []
 })
-export class FavoritesRoutingModule { }
+export class IssuesRoutingModule { }
