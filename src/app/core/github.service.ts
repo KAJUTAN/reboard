@@ -19,8 +19,6 @@ const CONTRIBUTORS_MOCK = 'assets/mocks/github/contributors.json';
 const REPO_INFO_MOCK = 'assets/mocks/github/info.json';
 const REPO_ISSUES = 'assets/mocks/github/issues.json';
 
-//https://api.github.com/repos/angular/material2/issues?state=open
-
 @Injectable()
 export class GithubService {
 
@@ -70,6 +68,12 @@ export class GithubService {
     getIssues(state: string): Observable<any> {
         return this.http.get(REPO_ISSUES + '?state=' + state, {cache: true})
         // return this.http.get(REPOS_URL + REPO + '/issues?state=' + state, {cache: true})
+            .map((res: Response) => res.json())
+            .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
+    }
+
+    repoExists(repo: string): Observable<any> {
+        return this.http.get(REPOS_URL + repo)
             .map((res: Response) => res.json())
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }

@@ -4,6 +4,8 @@ import {RouterModule} from '@angular/router';
 import {HttpModule, Http, XHRBackend, ConnectionBackend, RequestOptions} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateModule} from '@ngx-translate/core';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // Angular Material components
 import {MdToolbarModule} from '@angular/material';
@@ -16,7 +18,6 @@ import {MdSnackBarModule} from '@angular/material';
 import {MdDialogModule} from '@angular/material';
 import {MdSlideToggleModule} from '@angular/material';
 import {MdInputModule} from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {ShellComponent} from './shell/shell.component';
 import {HeaderComponent} from './shell/header/header.component';
@@ -49,7 +50,8 @@ export function createHttpService(backend: ConnectionBackend,
         MdSlideToggleModule,
         MdInputModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FlexLayoutModule
     ],
     exports: [
         HeaderComponent
