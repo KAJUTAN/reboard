@@ -17,6 +17,9 @@
                     <md-error *ngIf="repoInput.hasError('required')">
                         A repository name is required
                     </md-error>
+                    <md-error *ngIf="error">
+                        A repository name is required
+                    </md-error>
                 </md-input-container>
             </form>
         </md-list-item>

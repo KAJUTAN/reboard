@@ -15,9 +15,12 @@ export class SettingsComponent implements OnInit {
     placeholder = 'Repo name, e.g. angular/material2';
     repoName = 'angular/material25';
     checked = false;
+    error = '';
     repoInput = new FormControl({value: this.repoName, disabled: true}, [
         Validators.required,
-        Validators.pattern(EMAIL_REGEX)]);
+        Validators.pattern(EMAIL_REGEX),
+        this.checkRepoExists.bind(this)
+    ]);
 
     constructor(public dialogRef: MdDialogRef<SettingsComponent>,
                 private githubService: GithubService) {
@@ -31,7 +34,15 @@ export class SettingsComponent implements OnInit {
             return this.repoInput.enable();
         }
         this.repoInput.disable();
-        console.log(this.githubService.repoExists(this.repoName))
+    }
+
+    checkRepoExists(repoName: string) {
+        this.githubService.repoExists(repoName)
+            .subscribe(res => {
+                this.error = res;
+            }, err => {
+                console.log(err);
+            });
     }
 
 }

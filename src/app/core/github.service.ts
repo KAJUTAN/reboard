@@ -75,7 +75,7 @@ export class GithubService {
     repoExists(repo: string): Observable<any> {
         return this.http.get(REPOS_URL + repo)
             .map((res: Response) => res.json())
-            .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
+            .catch(() => Observable.of(false));
     }
 
 }
