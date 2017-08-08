@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MdDialog, MdDialogRef} from '@angular/material';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, Validators, AbstractControl, ValidatorFn} from '@angular/forms';
 import {GithubService} from '../../github.service';
+
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -15,18 +17,19 @@ export class SettingsComponent implements OnInit {
     placeholder = 'Repo name, e.g. angular/material2';
     repoName = 'angular/material25';
     checked = false;
-    error = '';
-    repoInput = new FormControl({value: this.repoName, disabled: true}, [
-        Validators.required,
-        Validators.pattern(EMAIL_REGEX),
-        this.checkRepoExists.bind(this)
-    ]);
+    repoInput: FormControl;
+
 
     constructor(public dialogRef: MdDialogRef<SettingsComponent>,
                 private githubService: GithubService) {
     }
 
     ngOnInit() {
+
+        this.repoInput = new FormControl({value: this.repoName, disabled: true}, [
+            Validators.required
+        ]);
+
     }
 
     toggleInputStatus() {
@@ -36,19 +39,26 @@ export class SettingsComponent implements OnInit {
         this.repoInput.disable();
     }
 
-    checkRepoExists(repoName: string) {
-        this.githubService.repoExists(repoName)
-            .subscribe(res => {
-                this.error = res;
-            }, err => {
-                console.log(err);
-            });
+    checkRepoExists() {
+        // TODO: Only get in here if any other validations have passed
+        if (this.checked) {
+            this.githubService.repoExists(this.repoInput.value)
+                .subscribe(res => {
+                    if (!res.id) {
+                        this.repoInput.setErrors({repoExists: {}});
+                    } else {
+                        this.dialogRef.close();
+                    }
+                }, err => {
+                    console.log(err);
+                });
+        } else {
+            this.dialogRef.close();
+        }
+    }
+
+    closeDialog() {
+        this.dialogRef.close();
     }
 
 }
-
-
-// form = new FormGroup({
-//     first: new FormControl({value: 'Nancy', disabled: true}, Validators.required),
-//     last: new FormControl('Drew', Validators.required)
-// });

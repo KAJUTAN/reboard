@@ -1,11 +1,9 @@
 import 'rxjs/add/operator/finally';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GithubService} from '../core/github.service';
-// import {Guser} from '../core/models/guser.model';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
-// import 'rxjs/add/operator/map';
 
 import {single, multi} from './data';
 

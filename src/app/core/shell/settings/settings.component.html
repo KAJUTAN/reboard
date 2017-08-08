@@ -1,31 +1,25 @@
-<div class="settings">
+<form class="settings" (ngSubmit)="checkRepoExists()" fxLayout="column">
     <header class="settings__header">Settings</header>
-    <md-list class="settings__list">
+    <md-list class="settings__list" fxFlex="100%">
         <md-list-item class="settings__list__item">
             <div md-line>Use real data</div>
             <p md-line>Limits to 60 requests per hour by Github</p>
-            <md-slide-toggle [(ngModel)]="checked" (change)="toggleInputStatus()"></md-slide-toggle>
+            <md-slide-toggle [(ngModel)]="checked" (change)="toggleInputStatus()" name="slide"></md-slide-toggle>
         </md-list-item>
         <md-list-item>
-            <form class="settings__form">
-                <md-input-container class="settings__form__input">
-                    <input mdInput placeholder="{{placeholder}}"
-                           [formControl]="repoInput">
-                    <md-error *ngIf="repoInput.hasError('pattern')">
-                        Please enter a valid email address
-                    </md-error>
-                    <md-error *ngIf="repoInput.hasError('required')">
-                        A repository name is required
-                    </md-error>
-                    <md-error *ngIf="error">
-                        A repository name is required
-                    </md-error>
-                </md-input-container>
-            </form>
+            <md-input-container class="settings__list__input">
+                <input mdInput placeholder="{{placeholder}}" [formControl]="repoInput">
+                <md-error *ngIf="repoInput.hasError('required')">
+                    A repository name is required
+                </md-error>
+                <md-error *ngIf="repoInput.hasError('repoExists')">
+                    No such repo, please try again
+                </md-error>
+            </md-input-container>
         </md-list-item>
     </md-list>
-    <footer class="settings__footer" fxLayoutAlign="end center">
-        <button md-button>DECLINE</button>
-        <button md-button>APPLY</button>
+    <footer class="settings__footer" fxFlexAlign="end">
+        <button md-button (click)="closeDialog()">DECLINE</button>
+        <button md-button type="submit">APPLY</button>
     </footer>
-</div>
+</form>
