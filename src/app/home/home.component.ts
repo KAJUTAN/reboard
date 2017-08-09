@@ -114,6 +114,16 @@ export class HomeComponent implements OnInit {
 
     loadData(useRealData: boolean, repoName?: string) {
 
+        const newCommits: any = [
+            {
+                'name': 'Commits',
+                'series': []
+            }
+        ];
+
+        const newLanguages: any = [];
+        const contributors: Array<any> = [];
+
         Observable
             .forkJoin([
                 this.githubService.getParticipation(useRealData, repoName),
@@ -126,26 +136,28 @@ export class HomeComponent implements OnInit {
                 // this._chart.ngOnChanges();
             })
             .subscribe(results => {
-                console.log(results[0]);
                 results[0].all.map((obj: any, idx: number) =>
-                    this.commits[0].series.push({
+                    newCommits[0].series.push({
                         'name': idx + 1,
                         'value': obj
                     }));
+                this.commits = newCommits;
                 Object.keys(results[1]).map(
-                    (obj, idx) => this.languages.push(
+                    (obj, idx) => newLanguages.push(
                         {'name': obj, 'value': results[1][obj]}
                     )
                 );
+                this.languages = newLanguages;
                 results[2].map(
                     (obj: any, idx: number) => {
                         if (idx < 10) {
-                            this.contributors.push(
+                            contributors.push(
                                 {'name': obj.login, 'value': obj.contributions}
                             )
                         }
                     }
                 );
+                this.contributors = contributors;
                 this.repoInfo = results[3];
                 this.folders[0].text = this.repoInfo.stargazers_count.toLocaleString();
                 this.folders[1].text = this.repoInfo.forks.toLocaleString();
