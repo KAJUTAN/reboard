@@ -1,10 +1,12 @@
 import 'rxjs/add/operator/finally';
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {GithubService} from '../core/github.service';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 // import {Subscription} from 'rxjs/Subscription';
+
+import {BaseChartComponent} from '@swimlane/ngx-charts';
 
 import {single, multi} from './data';
 
@@ -15,8 +17,11 @@ import {single, multi} from './data';
     styleUrls: ['./home.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
+
 export class HomeComponent implements OnInit {
-    //
+
+
+
 
     // private text: string;
     // subscriber: Subscription;
@@ -77,10 +82,13 @@ export class HomeComponent implements OnInit {
         },
         {
             text: 0,
-            icon: 'code',
-            subtext: 'size in Kb'
+            icon: 'rss_feed',
+            subtext: 'subscribers'
         }
     ];
+
+
+    // @ViewChild(BaseChartComponent) private _chart: any;
 
     constructor(private githubService: GithubService) {
         Object.assign(this, {single, multi});
@@ -95,33 +103,12 @@ export class HomeComponent implements OnInit {
                 this.githubService.useRealData$,
                 this.githubService.repoName$
             ])
-            // .finally(() => {
-            // })
             .subscribe(results => {
                 // console.log(results);
                 this.loadData(results[0], results[1]);
             }, err => {
                 console.log(err);
             });
-
-
-        // this.subscriber = this.githubService.repoName$
-        //     .subscribe(data => {
-        //         this.repoName = data;
-        //         this.loadData();
-        //     });
-
-
-        // this.githubService
-        //     .getUsers()
-        //     .finally(() => {
-        //         this.isLoading = false;
-        //     })
-        //     .subscribe(res => {
-        //         this.users = res;
-        //     }, err => {
-        //         console.log(err);
-        //     });
 
     }
 
@@ -130,32 +117,31 @@ export class HomeComponent implements OnInit {
     }
 
     loadData(useRealData: boolean, repoName?: string) {
+
         Observable
             .forkJoin([
-                this.githubService.getFounder(),
-                this.githubService.getUsers(),
-                this.githubService.getParticipation(),
-                this.githubService.getLanguages(),
-                this.githubService.getContributors(),
+                this.githubService.getParticipation(useRealData, repoName),
+                this.githubService.getLanguages(useRealData, repoName),
+                this.githubService.getContributors(useRealData, repoName),
                 this.githubService.getRepoInfo(useRealData, repoName)
             ])
             .finally(() => {
                 this.isLoading = false;
+                // this._chart.ngOnChanges();
             })
             .subscribe(results => {
-                this.founder = results[0];
-                this.users = results[1];
-                results[2].all.map((obj: any, idx: number) =>
+                console.log(results[0]);
+                results[0].all.map((obj: any, idx: number) =>
                     this.commits[0].series.push({
                         'name': idx + 1,
                         'value': obj
                     }));
-                Object.keys(results[3]).map(
+                Object.keys(results[1]).map(
                     (obj, idx) => this.languages.push(
-                        {'name': obj, 'value': results[3][obj]}
+                        {'name': obj, 'value': results[1][obj]}
                     )
                 );
-                results[4].map(
+                results[2].map(
                     (obj: any, idx: number) => {
                         if (idx < 10) {
                             this.contributors.push(
@@ -164,15 +150,15 @@ export class HomeComponent implements OnInit {
                         }
                     }
                 );
-                // this.totalContributors = results[4].length;
-                this.repoInfo = results[5];
+                this.repoInfo = results[3];
                 this.folders[0].text = this.repoInfo.stargazers_count.toLocaleString();
                 this.folders[1].text = this.repoInfo.forks.toLocaleString();
                 this.folders[2].text = this.repoInfo.open_issues.toLocaleString();
-                this.folders[3].text = this.repoInfo.size.toLocaleString();
+                this.folders[3].text = this.repoInfo.subscribers_count.toLocaleString();
             }, err => {
                 console.log(err);
             });
+
     }
 
 }

@@ -41,20 +41,6 @@ export class GithubService {
         this.useRealData.next(useRealData);
     }
 
-    getUsers(): Observable<any> {
-        // return this.http.get(API_URL, {cache: true})
-        return this.http.get(USERS_MOCK, {cache: true})
-            .map((res: Response) => res.json())
-            .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
-    }
-
-    getFounder(): Observable<any> {
-        // return this.http.get(API_URL + '/' + GITHUB_FOUNDER, {cache: true})
-        return this.http.get(FOUNDER_MOCK, {cache: true})
-            .map((res: Response) => res.json())
-            .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
-    }
-
     getRepoInfo(useRealData: boolean, repoName: string): Observable<any> {
         const apiUrl = useRealData ? REPOS_URL + repoName : REPO_INFO_MOCK;
         return this.http.get(apiUrl, {cache: true})
@@ -62,25 +48,29 @@ export class GithubService {
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 
-    getParticipation(): Observable<any> {
-        // return this.http.get(REPOS_URL + REPO + 'stats/participation', {cache: true})
-        return this.http.get(PARTICIPATION_MOCK, {cache: true})
+    getParticipation(useRealData: boolean, repoName: string): Observable<any> {
+        const apiUrl = useRealData ? REPOS_URL + repoName + '/stats/participation' : PARTICIPATION_MOCK;
+        // return this.http.get(REPOS_URL + repoName + 'stats/participation', {cache: true})
+        return this.http.get(apiUrl, {cache: true})
             .map((res: Response) => res.json())
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 
-    getLanguages(): Observable<any> {
-        return this.http.get(LANGUAGES_MOCK, {cache: true})
+    getLanguages(useRealData: boolean, repoName: string): Observable<any> {
+        const apiUrl = useRealData ? REPOS_URL + repoName + '/languages' : LANGUAGES_MOCK;
+        return this.http.get(apiUrl, {cache: true})
             .map((res: Response) => res.json())
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 
-    getContributors(): Observable<any> {
-        return this.http.get(CONTRIBUTORS_MOCK, {cache: true})
+    getContributors(useRealData: boolean, repoName: string): Observable<any> {
+        const apiUrl = useRealData ? REPOS_URL + repoName + '/contributors' : CONTRIBUTORS_MOCK;
+        return this.http.get(apiUrl, {cache: true})
             .map((res: Response) => res.json())
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 
+    //TODO
     getIssues(state: string): Observable<any> {
         return this.http.get(REPO_ISSUES + '?state=' + state, {cache: true})
         // return this.http.get(REPOS_URL + REPO + '/issues?state=' + state, {cache: true})
