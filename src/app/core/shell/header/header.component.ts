@@ -50,8 +50,12 @@ export class HeaderComponent implements OnInit {
 
     openDialog() {
         let dialogRef = this.dialog.open(SettingsComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            this.githubService.publishRepo(result);
+        dialogRef.afterClosed().subscribe(input => {
+            // console.log(input);
+            if (input) {
+                this.githubService.publishRepo(input.value);
+                this.githubService.toggleDataStatus(input.enabled);
+            }
         });
     }
 }

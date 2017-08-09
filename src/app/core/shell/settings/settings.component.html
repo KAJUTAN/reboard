@@ -1,4 +1,4 @@
-<form class="settings" (ngSubmit)="checkRepoExists()" fxLayout="column">
+<form class="settings" (ngSubmit)="submitDialog()" fxLayout="column">
     <header class="settings__header">Settings</header>
     <md-list class="settings__list" fxFlex="100%">
         <md-list-item class="settings__list__item">
@@ -19,11 +19,12 @@
         </md-list-item>
     </md-list>
     <footer class="settings__footer" fxFlexAlign="end">
-        <button md-button (click)="closeDialog()">DECLINE</button>
-        <button md-button md-dialog-close="{{repoInput.value}}" type="submit">APPLY</button>
+        <button md-button type="reset" (click)="closeDialog()">DECLINE</button>
+        <button md-button type="submit">APPLY</button>
     </footer>
 </form>
 
+<!--(click)="dialogRef.close(repoInput.value)"-->
 
 <!--<h1 md-dialog-title>Dialog</h1>-->
 <!--<div md-dialog-content>What would you like to do?</div>-->

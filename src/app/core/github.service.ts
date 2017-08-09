@@ -4,10 +4,11 @@ import 'rxjs/add/operator/catch';
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 // import {Guser} from '../core/models/guser.model';
 
+// TODO: Revise these names
 const API_URL = 'https://api.github.com/users';
 const GITHUB_FOUNDER = 'mojombo';
 const REPO = 'angular/material2';
@@ -24,14 +25,20 @@ const REPO_ISSUES = 'assets/mocks/github/issues.json';
 export class GithubService {
 
     // https://stackoverflow.com/questions/42555259/exchanging-data-between-sibling-components-in-angular-2
-    public repoName = new Subject<string>();
+    public repoName = new BehaviorSubject<string>('angular/material2');
     public repoName$ = this.repoName.asObservable(); // TODO: Should be in constructor?
+    public useRealData = new BehaviorSubject<boolean>(false);
+    public useRealData$ = this.useRealData.asObservable();
 
     constructor(private http: Http) {
     }
 
     publishRepo(repoName: string) {
         this.repoName.next(repoName);
+    }
+
+    toggleDataStatus(useRealData: boolean) {
+        this.useRealData.next(useRealData);
     }
 
     getUsers(): Observable<any> {
@@ -48,9 +55,9 @@ export class GithubService {
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 
-    getRepoInfo(repoName: string): Observable<any> {
-        // return this.http.get(REPOS_URL + repoName, {cache: true})
-        return this.http.get(REPO_INFO_MOCK, {cache: true})
+    getRepoInfo(useRealData: boolean, repoName: string): Observable<any> {
+        const apiUrl = useRealData ? REPOS_URL + repoName : REPO_INFO_MOCK;
+        return this.http.get(apiUrl, {cache: true})
             .map((res: Response) => res.json())
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }

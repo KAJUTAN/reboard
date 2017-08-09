@@ -4,7 +4,7 @@ import {GithubService} from '../core/github.service';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
-import {Subscription} from 'rxjs/Subscription';
+// import {Subscription} from 'rxjs/Subscription';
 
 import {single, multi} from './data';
 
@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
     //
 
     // private text: string;
-    subscriber: Subscription;
+    // subscriber: Subscription;
 
-    repoName = 'angular/material2';
+    // repoName: string;
     users: any;
     founder: any;
     isLoading: boolean;
@@ -88,12 +88,28 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.isLoading = true;
-        this.loadData();
-        this.subscriber = this.githubService.repoName$
-            .subscribe(data => {
-                this.repoName = data;
-                this.loadData();
+        this.loadData(false);
+
+        Observable
+            .combineLatest([
+                this.githubService.useRealData$,
+                this.githubService.repoName$
+            ])
+            // .finally(() => {
+            // })
+            .subscribe(results => {
+                // console.log(results);
+                this.loadData(results[0], results[1]);
+            }, err => {
+                console.log(err);
             });
+
+
+        // this.subscriber = this.githubService.repoName$
+        //     .subscribe(data => {
+        //         this.repoName = data;
+        //         this.loadData();
+        //     });
 
 
         // this.githubService
@@ -113,7 +129,7 @@ export class HomeComponent implements OnInit {
         console.log(event);
     }
 
-    loadData() {
+    loadData(useRealData: boolean, repoName?: string) {
         Observable
             .forkJoin([
                 this.githubService.getFounder(),
@@ -121,7 +137,7 @@ export class HomeComponent implements OnInit {
                 this.githubService.getParticipation(),
                 this.githubService.getLanguages(),
                 this.githubService.getContributors(),
-                this.githubService.getRepoInfo(this.repoName)
+                this.githubService.getRepoInfo(useRealData, repoName)
             ])
             .finally(() => {
                 this.isLoading = false;

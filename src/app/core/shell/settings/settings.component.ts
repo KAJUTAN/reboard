@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MdDialogRef} from '@angular/material';
 import {FormControl, Validators, AbstractControl, ValidatorFn} from '@angular/forms';
 import {GithubService} from '../../github.service';
+// import {BehaviorSubject} from "rxjs/BehaviorSubject";
+
 
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -15,8 +17,8 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 export class SettingsComponent implements OnInit {
 
     placeholder = 'Repo name, e.g. angular/material2';
-    repoName = 'angular/material25';
-    checked = false;
+    repoName: string;
+    checked: boolean;
     repoInput: FormControl;
 
 
@@ -25,11 +27,11 @@ export class SettingsComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        this.repoInput = new FormControl({value: this.repoName, disabled: true}, [
+        this.checked = this.githubService.useRealData.getValue();
+        this.repoName = this.githubService.repoName.getValue();
+        this.repoInput = new FormControl({value: this.repoName, disabled: !this.checked}, [
             Validators.required
         ]);
-
     }
 
     toggleInputStatus() {
@@ -39,7 +41,7 @@ export class SettingsComponent implements OnInit {
         this.repoInput.disable();
     }
 
-    checkRepoExists() {
+    submitDialog() {
         // TODO: Only get in here if any other validations have passed
         if (this.checked) {
             this.githubService.repoExists(this.repoInput.value)
@@ -47,12 +49,14 @@ export class SettingsComponent implements OnInit {
                     if (!res.id) {
                         this.repoInput.setErrors({repoExists: {}});
                     } else {
-                        this.dialogRef.close();
+                        this.githubService.toggleDataStatus(true);
+                        this.dialogRef.close(this.repoInput);
                     }
                 }, err => {
                     console.log(err);
                 });
         } else {
+            this.githubService.toggleDataStatus(false);
             this.dialogRef.close();
         }
     }
