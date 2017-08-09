@@ -4,6 +4,7 @@ import {GithubService} from '../core/github.service';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
+import {Subscription} from 'rxjs/Subscription';
 
 import {single, multi} from './data';
 
@@ -16,6 +17,11 @@ import {single, multi} from './data';
 })
 export class HomeComponent implements OnInit {
     //
+
+    // private text: string;
+    subscriber: Subscription;
+
+    repoName = 'angular/material2';
     users: any;
     founder: any;
     isLoading: boolean;
@@ -82,7 +88,32 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.isLoading = true;
+        this.loadData();
+        this.subscriber = this.githubService.repoName$
+            .subscribe(data => {
+                this.repoName = data;
+                this.loadData();
+            });
 
+
+        // this.githubService
+        //     .getUsers()
+        //     .finally(() => {
+        //         this.isLoading = false;
+        //     })
+        //     .subscribe(res => {
+        //         this.users = res;
+        //     }, err => {
+        //         console.log(err);
+        //     });
+
+    }
+
+    onSelect(event: any) {
+        console.log(event);
+    }
+
+    loadData() {
         Observable
             .forkJoin([
                 this.githubService.getFounder(),
@@ -90,7 +121,7 @@ export class HomeComponent implements OnInit {
                 this.githubService.getParticipation(),
                 this.githubService.getLanguages(),
                 this.githubService.getContributors(),
-                this.githubService.getRepoInfo()
+                this.githubService.getRepoInfo(this.repoName)
             ])
             .finally(() => {
                 this.isLoading = false;
@@ -126,23 +157,6 @@ export class HomeComponent implements OnInit {
             }, err => {
                 console.log(err);
             });
-
-
-        // this.githubService
-        //     .getUsers()
-        //     .finally(() => {
-        //         this.isLoading = false;
-        //     })
-        //     .subscribe(res => {
-        //         this.users = res;
-        //     }, err => {
-        //         console.log(err);
-        //     });
-
-    }
-
-    onSelect(event: any) {
-        console.log(event);
     }
 
 }

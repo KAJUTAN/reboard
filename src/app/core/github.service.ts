@@ -4,6 +4,7 @@ import 'rxjs/add/operator/catch';
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 
 // import {Guser} from '../core/models/guser.model';
 
@@ -22,7 +23,15 @@ const REPO_ISSUES = 'assets/mocks/github/issues.json';
 @Injectable()
 export class GithubService {
 
+    // https://stackoverflow.com/questions/42555259/exchanging-data-between-sibling-components-in-angular-2
+    public repoName = new Subject<string>();
+    public repoName$ = this.repoName.asObservable(); // TODO: Should be in constructor?
+
     constructor(private http: Http) {
+    }
+
+    publishRepo(repoName: string) {
+        this.repoName.next(repoName);
     }
 
     getUsers(): Observable<any> {
@@ -39,8 +48,8 @@ export class GithubService {
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 
-    getRepoInfo(): Observable<any> {
-        // return this.http.get(REPOS_URL + REPO, {cache: true})
+    getRepoInfo(repoName: string): Observable<any> {
+        // return this.http.get(REPOS_URL + repoName, {cache: true})
         return this.http.get(REPO_INFO_MOCK, {cache: true})
             .map((res: Response) => res.json())
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));

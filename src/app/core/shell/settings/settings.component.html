@@ -20,6 +20,14 @@
     </md-list>
     <footer class="settings__footer" fxFlexAlign="end">
         <button md-button (click)="closeDialog()">DECLINE</button>
-        <button md-button type="submit">APPLY</button>
+        <button md-button md-dialog-close="{{repoInput.value}}" type="submit">APPLY</button>
     </footer>
 </form>
+
+
+<!--<h1 md-dialog-title>Dialog</h1>-->
+<!--<div md-dialog-content>What would you like to do?</div>-->
+<!--<div md-dialog-actions>-->
+    <!--<button md-button md-dialog-close="Option 1">Option 1</button>-->
+    <!--<button md-button md-dialog-close="Option 2">Option 2</button>-->
+<!--</div>-->

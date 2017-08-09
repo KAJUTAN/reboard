@@ -2,8 +2,9 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {I18nService} from '../../i18n.service';
 // import {MdSnackBar} from '@angular/material';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {SettingsComponent} from '../settings/settings.component';
+import {GithubService} from '../../github.service';
 
 @Component({
     selector: 'app-header',
@@ -15,9 +16,9 @@ export class HeaderComponent implements OnInit {
 
     @Input() sidenav: any;
     pageTitle: String;
-    selectedOption: string;
 
-    constructor(private i18nService: I18nService,
+    constructor(private githubService: GithubService,
+                private i18nService: I18nService,
                 // private snackBar: MdSnackBar,
                 public dialog: MdDialog,
                 private titleService: Title) {
@@ -50,7 +51,7 @@ export class HeaderComponent implements OnInit {
     openDialog() {
         let dialogRef = this.dialog.open(SettingsComponent);
         dialogRef.afterClosed().subscribe(result => {
-            this.selectedOption = result;
+            this.githubService.publishRepo(result);
         });
     }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MdDialogRef} from '@angular/material';
 import {FormControl, Validators, AbstractControl, ValidatorFn} from '@angular/forms';
 import {GithubService} from '../../github.service';
 
