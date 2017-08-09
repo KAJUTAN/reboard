@@ -4,9 +4,8 @@ import {GithubService} from '../core/github.service';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
-// import {Subscription} from 'rxjs/Subscription';
 
-import {BaseChartComponent} from '@swimlane/ngx-charts';
+// import {BaseChartComponent} from '@swimlane/ngx-charts';
 
 import {single, multi} from './data';
 
@@ -19,9 +18,6 @@ import {single, multi} from './data';
 })
 
 export class HomeComponent implements OnInit {
-
-
-
 
     // private text: string;
     // subscriber: Subscription;

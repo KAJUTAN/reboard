@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ViewChild} from '@angular/core';
+import {ViewChild, ViewEncapsulation} from '@angular/core';
 import {MdSidenav} from '@angular/material';
 import {Observable} from 'rxjs/Rx' ;
+import {GithubService} from '../../core/github.service';
 
 @Component({
     selector: 'app-shell',
     templateUrl: './shell.component.html',
     styleUrls: ['./shell.component.scss']
+    // encapsulation: ViewEncapsulation.None
 })
 
 export class ShellComponent implements OnInit {
@@ -38,18 +40,35 @@ export class ShellComponent implements OnInit {
         }
     ];
 
-    constructor() {
+    repoName: string;
+
+    constructor(private githubService: GithubService) {
     }
 
     ngOnInit() {
+
+        // Observable.from(this.githubService.repoName)
+        //     .subscribe(title => this.repoName = title);
+
         Observable.fromEvent(window, 'resize')
-            // .debounceTime(100)
+        // .debounceTime(100)
             .subscribe((event) => {
                 this.checkNav(event);
             });
         if (window.innerWidth > 1490) {
             this.navIsVisible = true;
         }
+        Observable
+            .combineLatest([
+                this.githubService.useRealData$,
+                this.githubService.repoName$
+            ])
+            .subscribe(([useRealData, repoName]) => {
+                this.repoName = useRealData ? repoName : 'angular/material2 (mock)'
+            }, err => {
+                console.log(err);
+            });
+
     }
 
     private checkNav(e: any) {

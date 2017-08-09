@@ -13,6 +13,23 @@
 
   &__header {
     border-bottom: 1px solid rgba(117, 117, 117, 0.2);
+
+    &__list {
+      margin-left: -16px;
+      padding-top: 0;
+    }
+
+    &__text,
+    &__subtext,
+    &__icon {
+      line-height: 1.5rem;
+      color: #757575;
+      margin-left: -4px !important;
+    }
+
+    //&__text {
+    //  font-weight: 600 !important;
+    //}
   }
 
   &__list {
@@ -35,8 +52,13 @@
 
     .sidenav__header {
       background: #607d8b; //TODO: use variables from theme-variables.css
-      color: white;
       border-bottom: none;
+
+      &__text,
+      &__subtext,
+      &__icon {
+        color: whitesmoke;
+      }
     }
   }
 

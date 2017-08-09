@@ -2,10 +2,13 @@
     <md-sidenav #sidenav mode="over" class="sidenav"
                 [ngClass]="{'is-visible': navIsVisible, 'is-hidden': !navIsVisible}">
         <md-toolbar class="sidenav__header">
-            <a md-icon-button routerLink="home">
-                <md-icon>dashboard</md-icon>
-            </a>
-            <span>Reboard</span>
+            <md-list class="sidenav__header__list">
+                <md-list-item>
+                    <md-icon md-list-icon class="sidenav__header__icon">dashboard</md-icon>
+                    <h4 md-line class="sidenav__header__text">Reboard</h4>
+                    <p md-line class="sidenav__header__subtext">{{repoName}}</p>
+                </md-list-item>
+            </md-list>
         </md-toolbar>
         <md-nav-list class="sidenav__list">
             <a md-list-item routerLink="{{link.path}}" *ngFor="let link of mainLinks">
