@@ -1,14 +1,8 @@
-import 'rxjs/add/operator/finally';
-import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GithubService} from '../core/github.service';
-
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
-
-// import {BaseChartComponent} from '@swimlane/ngx-charts';
-
-import {single, multi} from './data';
-
+import 'rxjs/add/operator/finally';
 
 @Component({
     selector: 'app-home',
@@ -19,135 +13,96 @@ import {single, multi} from './data';
 
 export class HomeComponent implements OnInit {
 
-    // private text: string;
-    // subscriber: Subscription;
-
-    // repoName: string;
-    users: any;
-    founder: any;
     isLoading: boolean;
-    // TODO: Use an interface here
-    commits: any[] = [
-        {
-            'name': 'Commits',
-            'series': []
-        }
-    ];
-    languages: any[] = [];
-    contributors: any[] = [];
-    // totalContributors: any;
-    repoInfo: any;
+    commits: any[];
+    languages: any[];
+    contributors: any[];
 
-    // = {
-    //     'stargazers_count': 0
-    // };
-
-    // options
-    showXAxis = true;
-    showYAxis = true;
-    gradient = true;
-    showLegend = true;
-    legendTitle = '';
-    showXAxisLabel = true;
+    // charts options
     xAxisLabel = 'Week';
-    showYAxisLabel = true;
     yAxisLabel = 'Commits';
-
     colorScheme = {
         domain: ['#FE7675', '#2095F2', '#4DAE4E', '#FE9900']
     };
 
-    // line, area
-    autoScale = true;
-
-    folders: any[] = [
+    // Stats widget
+    stats: any[] = [
         {
-            text: 0,
+            value: 0,
+            text: 'stargazers',
             icon: 'star',
-            subtext: 'stargazers'
+            color: 'red'
         },
         {
-            text: 0,
+            value: 0,
+            text: 'forks',
             icon: 'content_copy',
-            subtext: 'forks'
+            color: 'blue'
         },
         {
-            text: 0,
+            value: 0,
+            text: 'open issues',
             icon: 'bug_report',
-            subtext: 'open issues'
+            color: 'orange'
         },
         {
-            text: 0,
+            value: 0,
+            text: 'subscribers',
             icon: 'rss_feed',
-            subtext: 'subscribers'
+            color: 'green'
         }
     ];
 
-
-    // @ViewChild(BaseChartComponent) private _chart: any;
-
-    constructor(private githubService: GithubService) {
-        Object.assign(this, {single, multi});
-    }
+    constructor(private githubService: GithubService) {}
 
     ngOnInit() {
         this.isLoading = true;
         this.loadData(false);
-
         Observable
             .combineLatest([
                 this.githubService.useRealData$,
                 this.githubService.repoName$
             ])
-            .subscribe(results => {
-                // console.log(results);
-                this.loadData(results[0], results[1]);
+            .subscribe(([useRealData, repoName]) => {
+                this.loadData(useRealData, repoName);
             }, err => {
                 console.log(err);
             });
-
     }
 
-    onSelect(event: any) {
-        console.log(event);
-    }
-
+    // Load data for dashboard
     loadData(useRealData: boolean, repoName?: string) {
 
-        const newCommits: any = [
-            {
-                'name': 'Commits',
-                'series': []
-            }
-        ];
-
-        const newLanguages: any = [];
+        const commits: any[] = [{'name': 'Commits', 'series': []}];
+        const languages: any = [];
         const contributors: Array<any> = [];
 
         Observable
             .forkJoin([
-                this.githubService.getParticipation(useRealData, repoName),
+                this.githubService.getCommits(useRealData, repoName),
                 this.githubService.getLanguages(useRealData, repoName),
                 this.githubService.getContributors(useRealData, repoName),
                 this.githubService.getRepoInfo(useRealData, repoName)
             ])
             .finally(() => {
                 this.isLoading = false;
-                // this._chart.ngOnChanges();
             })
             .subscribe(results => {
-                results[0].all.map((obj: any, idx: number) =>
-                    newCommits[0].series.push({
+                // Prepare data for contributions chart
+                results[0].map((obj: any, idx: number) =>
+                    commits[0].series.push({
                         'name': idx + 1,
                         'value': obj
                     }));
-                this.commits = newCommits;
+                this.commits = commits;
+                // Prepare data for languages chart
                 Object.keys(results[1]).map(
-                    (obj, idx) => newLanguages.push(
+                    (obj, idx) => languages.push(
                         {'name': obj, 'value': results[1][obj]}
                     )
                 );
-                this.languages = newLanguages;
+                this.languages = languages;
+                // Prepare data for top contributors chart
                 results[2].map(
                     (obj: any, idx: number) => {
                         if (idx < 10) {
@@ -158,15 +113,21 @@ export class HomeComponent implements OnInit {
                     }
                 );
                 this.contributors = contributors;
-                this.repoInfo = results[3];
-                this.folders[0].text = this.repoInfo.stargazers_count.toLocaleString();
-                this.folders[1].text = this.repoInfo.forks.toLocaleString();
-                this.folders[2].text = this.repoInfo.open_issues.toLocaleString();
-                this.folders[3].text = this.repoInfo.subscribers_count.toLocaleString();
+                // Prepare data for statistics card
+                this.stats[0].value = results[3].stargazers_count.toLocaleString();
+                this.stats[1].value = results[3].forks.toLocaleString();
+                this.stats[2].value = results[3].open_issues.toLocaleString();
+                this.stats[3].value = results[3].subscribers_count.toLocaleString();
+
             }, err => {
                 console.log(err);
             });
 
+    }
+
+    // ngx-charts on select event
+    onSelect(event: any) {
+        console.log(event);
     }
 
 }

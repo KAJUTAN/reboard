@@ -48,11 +48,11 @@ export class GithubService {
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 
-    getParticipation(useRealData: boolean, repoName: string): Observable<any> {
+    getCommits(useRealData: boolean, repoName: string): Observable<any> {
         const apiUrl = useRealData ? REPOS_URL + repoName + '/stats/participation' : PARTICIPATION_MOCK;
         // return this.http.get(REPOS_URL + repoName + 'stats/participation', {cache: true})
         return this.http.get(apiUrl, {cache: true})
-            .map((res: Response) => res.json())
+            .map((res: Response) => res.json().all)
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 

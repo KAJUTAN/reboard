@@ -1,47 +1,12 @@
 <div class="home" fxLayout="column" fxLayoutAlign="center flex-start">
 
     <div class="home__stats" fxFlex="701px" fxFlex.sm="350px" fxFlex.gt-sm="170px" fxLayout fxLayout.lt-md="row wrap"
-         fxLayoutAlign="space-between flex-start">
-        <md-card class="home__stat home__stat--red" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
+         fxLayoutAlign="space-between flex-start" *ngIf="!isLoading">
+        <md-card class="home__stat" ngClass="{{'home__stat--' + stat.color}}" fxFlex="100" fxFlex.gt-xs="47"
+                 *ngFor="let stat of stats">
             <md-card-header>
-                <md-card-title class="home__stat__title">{{repoInfo?.stargazers_count.toLocaleString()}}</md-card-title>
-                <md-card-subtitle class="home__stat__subtitle">stargazers</md-card-subtitle>
-            </md-card-header>
-            <md-card-actions class="home__stat__actions">
-                <button md-icon-button>
-                    <md-icon>more_vert</md-icon>
-                </button>
-            </md-card-actions>
-        </md-card>
-
-        <md-card class="home__stat home__stat--blue" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
-            <md-card-header>
-                <md-card-title class="home__stat__title">{{repoInfo.forks.toLocaleString()}}</md-card-title>
-                <md-card-subtitle class="home__stat__subtitle">forks</md-card-subtitle>
-            </md-card-header>
-            <md-card-actions class="home__stat__actions">
-                <button md-icon-button>
-                    <md-icon>more_vert</md-icon>
-                </button>
-            </md-card-actions>
-        </md-card>
-
-        <md-card class="home__stat home__stat--orange" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
-            <md-card-header>
-                <md-card-title class="home__stat__title">{{repoInfo.open_issues.toLocaleString()}}</md-card-title>
-                <md-card-subtitle class="home__stat__subtitle">open issues</md-card-subtitle>
-            </md-card-header>
-            <md-card-actions class="home__stat__actions">
-                <button md-icon-button>
-                    <md-icon>more_vert</md-icon>
-                </button>
-            </md-card-actions>
-        </md-card>
-
-        <md-card class="home__stat home__stat--green" fxFlex="100" fxFlex.gt-xs="47" *ngIf="!isLoading">
-            <md-card-header>
-                <md-card-title class="home__stat__title">{{repoInfo.subscribers_count.toLocaleString()}}</md-card-title>
-                <md-card-subtitle class="home__stat__subtitle">subscribers</md-card-subtitle>
+                <md-card-title class="home__stat__title">{{stat.value}}</md-card-title>
+                <md-card-subtitle class="home__stat__subtitle">{{stat.text}}</md-card-subtitle>
             </md-card-header>
             <md-card-actions class="home__stat__actions">
                 <button md-icon-button>
@@ -65,14 +30,13 @@
                 <ngx-charts-line-chart *ngIf="!isLoading"
                                        [scheme]="colorScheme"
                                        [results]="commits"
-                                       [gradient]="gradient"
-                                       [xAxis]="showXAxis"
-                                       [yAxis]="showYAxis"
-                                       [showXAxisLabel]="showXAxisLabel"
-                                       [showYAxisLabel]="showYAxisLabel"
+                                       [xAxis]="true"
+                                       [yAxis]="true"
+                                       [showXAxisLabel]="true"
+                                       [showYAxisLabel]="true"
                                        [xAxisLabel]="xAxisLabel"
                                        [yAxisLabel]="yAxisLabel"
-                                       [autoScale]="autoScale"
+                                       [autoScale]="true"
                                        (select)="onSelect($event)">
                 </ngx-charts-line-chart>
             </md-card-content>
@@ -87,13 +51,12 @@
                     </button>
                 </div>
             </md-card-header>
-            <!--<md-card-content class="home__chart__content">-->
 
             <md-list *ngIf="!isLoading">
-                <md-list-item *ngFor="let folder of folders">
-                    <md-icon md-list-icon color="accent">{{folder.icon}}</md-icon>
-                    <h4 md-line>{{folder.text}}</h4>
-                    <p md-line> {{folder.subtext}} </p>
+                <md-list-item *ngFor="let stat of stats">
+                    <md-icon md-list-icon color="accent">{{stat.icon}}</md-icon>
+                    <h4 md-line>{{stat.value}}</h4>
+                    <p md-line> {{stat.text}} </p>
                 </md-list-item>
             </md-list>
 
@@ -102,24 +65,20 @@
         <md-card class="home__chart" fxFlex="100" fxFlex.gt-sm="45.3">
             <md-card-header>
                 <div class="home__chart__title" fxLayout fxLayoutAlign="space-between center">
-                    <span>Languages</span>
+                    <span>Languages (bytes)</span>
                     <button md-icon-button>
                         <md-icon>more_vert</md-icon>
                     </button>
                 </div>
             </md-card-header>
             <md-card-content class="home__chart__content">
-
                 <ngx-charts-pie-chart *ngIf="!isLoading"
                                       [scheme]="colorScheme"
                                       [results]="languages"
-                                      [legend]=false
-                                      [gradient]="gradient"
                                       [labels]=true
                                       [doughnut]=true
                                       (select)="onSelect($event)">
                 </ngx-charts-pie-chart>
-
             </md-card-content>
         </md-card>
 
@@ -134,22 +93,13 @@
                 </div>
             </md-card-header>
             <md-card-content class="home__chart__content">
-
-                <!--<ngx-charts-tree-map-->
-                        <!--*ngIf="!isLoading"-->
-                <!--[view]="view"-->
-                <!--[scheme]="colorScheme"-->
-                <!--[results]="contributors"-->
-                <!--(select)="onSelect($event)">-->
-                <!--</ngx-charts-tree-map>-->
-
                 <ngx-charts-bar-vertical
                         *ngIf="!isLoading"
                         [scheme]="colorScheme"
                         [results]="contributors"
-                        [gradient]="gradient"
-                        [xAxis]="showXAxis"
-                        [yAxis]="showYAxis"
+                        [gradient]="true"
+                        [xAxis]="true"
+                        [yAxis]="true"
                         [legend]=false
                         (select)="onSelect($event)">
                 </ngx-charts-bar-vertical>
