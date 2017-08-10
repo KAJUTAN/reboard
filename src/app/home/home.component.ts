@@ -53,11 +53,14 @@ export class HomeComponent implements OnInit {
         }
     ];
 
-    constructor(private githubService: GithubService) {}
+    constructor(private githubService: GithubService) {
+    }
 
     ngOnInit() {
         this.isLoading = true;
+        // Load data for dashboard
         this.loadData(false);
+        // Subscribe to changes happened within settings modal (use of real data and repo name)
         Observable
             .combineLatest([
                 this.githubService.useRealData$,

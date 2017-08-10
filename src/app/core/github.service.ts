@@ -1,29 +1,22 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
-// import {Guser} from '../core/models/guser.model';
-
-// TODO: Revise these names
-const API_URL = 'https://api.github.com/users';
-const GITHUB_FOUNDER = 'mojombo';
-const REPO = 'angular/material2';
 const REPOS_URL = 'https://api.github.com/repos/';
-const USERS_MOCK = 'assets/mocks/github-users.json';
-const FOUNDER_MOCK = 'assets/mocks/github-founder.json';
+
+// Mock data
 const PARTICIPATION_MOCK = 'assets/mocks/github/participation.json';
 const LANGUAGES_MOCK = 'assets/mocks/github/languages.json';
 const CONTRIBUTORS_MOCK = 'assets/mocks/github/contributors.json';
 const REPO_INFO_MOCK = 'assets/mocks/github/info.json';
-const REPO_ISSUES = 'assets/mocks/github/issues.json';
+const OPEN_ISSUES_MOCK = 'assets/mocks/github/open-issues.json';
+const CLOSED_ISSUES_MOCK = 'assets/mocks/github/closed-issues.json';
 
 @Injectable()
 export class GithubService {
-
     // https://stackoverflow.com/questions/42555259/exchanging-data-between-sibling-components-in-angular-2
     public repoName = new BehaviorSubject<string>('angular/material2');
     public repoName$ = this.repoName.asObservable(); // TODO: Should be in constructor?
@@ -50,7 +43,6 @@ export class GithubService {
 
     getCommits(useRealData: boolean, repoName: string): Observable<any> {
         const apiUrl = useRealData ? REPOS_URL + repoName + '/stats/participation' : PARTICIPATION_MOCK;
-        // return this.http.get(REPOS_URL + repoName + 'stats/participation', {cache: true})
         return this.http.get(apiUrl, {cache: true})
             .map((res: Response) => res.json().all)
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
@@ -70,10 +62,10 @@ export class GithubService {
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }
 
-    //TODO
-    getIssues(state: string): Observable<any> {
-        return this.http.get(REPO_ISSUES + '?state=' + state, {cache: true})
-        // return this.http.get(REPOS_URL + REPO + '/issues?state=' + state, {cache: true})
+    getIssues(useRealData: boolean, repoName: string, state: string): Observable<any> {
+        const apiUrl = useRealData ? REPOS_URL + repoName + '/issues?state=' + state :
+            state === 'open' ? OPEN_ISSUES_MOCK : CLOSED_ISSUES_MOCK;
+        return this.http.get(apiUrl, {cache: true})
             .map((res: Response) => res.json())
             .catch(() => Observable.of('Sorry, something went wrong, try again in a minute'));
     }

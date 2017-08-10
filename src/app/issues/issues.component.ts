@@ -1,8 +1,8 @@
-import 'rxjs/add/operator/finally';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GithubService} from '../core/github.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/finally';
 
 @Component({
     selector: 'app-issues',
@@ -10,6 +10,7 @@ import 'rxjs/add/observable/forkJoin';
     styleUrls: ['./issues.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
+
 export class IssuesComponent implements OnInit {
 
     openIssues: any[];
@@ -21,10 +22,27 @@ export class IssuesComponent implements OnInit {
 
     ngOnInit() {
         this.isLoading = true;
+        // Load data for dashboard
+        this.loadData(false);
+        // Subscribe to changes happened within settings modal (use of real data and repo name)
+        Observable
+            .combineLatest([
+                this.githubService.useRealData$,
+                this.githubService.repoName$
+            ])
+            .subscribe(([useRealData, repoName]) => {
+                this.loadData(useRealData, repoName);
+            }, err => {
+                console.log(err);
+            });
+    }
+
+    // Load data for issues
+    loadData(useRealData: boolean, repoName?: string) {
         Observable
             .forkJoin([
-                this.githubService.getIssues('open'),
-                this.githubService.getIssues('closed')
+                this.githubService.getIssues(useRealData, repoName, 'open'),
+                this.githubService.getIssues(useRealData, repoName, 'closed')
             ])
             .finally(() => {
                 this.isLoading = false;
@@ -33,17 +51,6 @@ export class IssuesComponent implements OnInit {
                 this.openIssues = results[0];
                 this.closedIssues = results[1];
             })
-
-        // this.githubService.getIssues('open')
-        //     .finally(() => {
-        //       this.isLoading = false;
-        //     })
-        //     // .subscribe((quote: string) => { this.quote = quote; });
-        //     .subscribe(res => {
-        //       this.openIssues = res
-        //     }, err => {
-        //       console.log(err)
-        //     });
     }
 
 }
