@@ -2,9 +2,9 @@
   "generator-ngx-rocket": {
     "version": "1.3.3",
     "props": {
-      "appName": "Material Music",
+      "appName": "Reboard",
       "auth": false,
-      "projectName": "angular-material2-dashboard"
+      "projectName": "reboard"
     }
   }
 }
