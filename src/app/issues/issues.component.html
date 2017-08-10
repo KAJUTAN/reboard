@@ -1,7 +1,7 @@
 <div class="issues">
     <md-tab-group class="issues__tabs">
         <md-tab label="Open" fxLayout="row wrap">
-            <md-card class="issues__card" *ngFor="let issue of openIssues">
+            <md-card class="issues__card" fxLayout="column" fxLayoutAlign="space-between" *ngFor="let issue of openIssues">
                 <md-card-header>
                     <div md-card-avatar [ngStyle]="{'background-image': 'url(' + issue.user.avatar_url + ')'}"></div>
                     <md-card-title>Issue <strong>{{issue.number}}</strong> by {{issue.user.login}}</md-card-title>
@@ -14,7 +14,7 @@
             </md-card>
         </md-tab>
         <md-tab label="Closed">
-            <md-card class="issues__card" *ngFor="let issue of closedIssues">
+            <md-card class="issues__card" fxLayout="column" fxLayoutAlign="space-between" *ngFor="let issue of closedIssues">
                 <md-card-header>
                     <div md-card-avatar [ngStyle]="{'background-image': 'url(' + issue.user.avatar_url + ')'}"></div>
                     <md-card-title>Issue <strong>{{issue.number}}</strong> by {{issue.user.login}}</md-card-title>
