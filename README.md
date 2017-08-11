@@ -48,7 +48,7 @@ For a full list and more check ngx-rocket's [task list](https://github.com/ngx-r
 
 ## Issues, bugs and contributions
 
-Use [issues](https://github.com/ksiabani/reboard/issues) to report a bug or suggest a fix, or send a [pull request](https://github.com/ksiabani/reboard/pulls)
+Use [issues](https://github.com/ksiabani/reboard/issues) to report a bug or suggest a fix, or send a [pull request](https://github.com/ksiabani/reboard/pulls).
 
 ## License
 
