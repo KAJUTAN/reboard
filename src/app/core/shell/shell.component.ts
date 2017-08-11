@@ -3,6 +3,8 @@ import {ViewChild, ViewEncapsulation} from '@angular/core';
 import {MdSidenav} from '@angular/material';
 import {Observable} from 'rxjs/Rx' ;
 import {GithubService} from '../../core/github.service';
+import {MdDialog} from '@angular/material';
+import {SettingsComponent} from './settings/settings.component';
 
 @Component({
     selector: 'app-shell',
@@ -32,7 +34,7 @@ export class ShellComponent implements OnInit {
     subLinks: Array<Object> = [
         {
             name: 'Settings',
-            icon: 'settings'
+            icon: 'settings',
         },
         {
             name: 'Open in Github',
@@ -42,7 +44,8 @@ export class ShellComponent implements OnInit {
 
     repoName: string;
 
-    constructor(private githubService: GithubService) {
+    constructor(private githubService: GithubService,
+                public dialog: MdDialog) {
     }
 
     ngOnInit() {
@@ -69,6 +72,17 @@ export class ShellComponent implements OnInit {
                 console.log(err);
             });
 
+    }
+
+    openDialog() {
+        let dialogRef = this.dialog.open(SettingsComponent);
+        dialogRef.afterClosed().subscribe(input => {
+            // console.log(input);
+            if (input) {
+                this.githubService.publishRepo(input.value);
+                this.githubService.toggleDataStatus(input.enabled);
+            }
+        });
     }
 
     private checkNav(e: any) {

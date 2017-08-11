@@ -18,11 +18,16 @@
         </md-nav-list>
 
         <md-nav-list class="sidenav__list">
-            <a md-list-item href class="sidenav__list__icon" *ngFor="let sublink of subLinks">
-                <md-icon class="sidenav__list__icon">{{sublink.icon}}</md-icon>
-                {{sublink.name }}
+            <a md-list-item class="sidenav__list__icon" (click)="openDialog()">
+                <md-icon class="sidenav__list__icon">settings</md-icon>
+                Settings
+            </a>
+            <a md-list-item href="https://github.com/ksiabani/reboard" target="_blank" class="sidenav__list__icon">
+                <md-icon class="sidenav__list__icon">code</md-icon>
+                Open in Github
             </a>
         </md-nav-list>
+
     </md-sidenav>
     <app-header [sidenav]="sidenav"></app-header>
     <div class="sidenav__content">
