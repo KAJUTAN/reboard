@@ -2,7 +2,7 @@
 
 > Reboard is a Material 2 dashboard that uses ngx-charts to demonstrate repository statistics with the Github API.
 > Reboard is based on [ngx-rocket](https://github.com/ngx-rocket/generator-ngx-rocket) generator to offer a scalable 
-> Material Design template with best practices in mind. Click [here](https://ksiabani.github.io/reboard) for a live demo.
+> Material Design template with best practices in mind. **Click [here](https://ksiabani.github.io/reboard) for a live demo.**
 
 ![alt text](https://raw.githubusercontent.com/ksiabani/reboard/master/src/assets/screenshot.png "Reboard")
 
