@@ -28,7 +28,6 @@ apart from Bootstrap and Font Awesome (it uses Angular Flex-Layout and Material 
 
 - Run `npm start` to Run development server on `http://localhost:4200/`
 - Run `npm run build [-- --env=prod]` to lint code and output distributable code in `dist/` folder
-- Run `gulp serve:dist` to preview the production build
 - Run `npm test` to run tests
 - Run `npm run lint` to lint your code
 
